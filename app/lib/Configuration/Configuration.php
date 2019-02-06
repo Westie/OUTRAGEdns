@@ -7,7 +7,9 @@ use \OUTRAGElib\Delegator\DelegatorTrait;
 use \OUTRAGElib\Structure\ObjectList;
 use \OUTRAGElib\Structure\ObjectListPopulationTrait;
 use \OUTRAGElib\Structure\ObjectListRetrievalTrait;
+use \Symfony\Component\Yaml\Exception\ParseException;
 use \Symfony\Component\Yaml\Yaml;
+use \RuntimeException;
 
 
 class Configuration extends ObjectList
@@ -41,7 +43,16 @@ class Configuration extends ObjectList
 			$array = [];
 			
 			foreach($paths as $path)
-				$array = array_merge_recursive($array, Yaml::parse(file_get_contents($path)));
+			{
+				try
+				{
+					$array = array_merge_recursive($array, Yaml::parse(file_get_contents($path)));
+				}
+				catch(ParseException $exception)
+				{
+					throw new RuntimeException("Error parsing '".$path."'", 0, $exception);
+				}
+			}
 			
 			$instance->populateObjectList($array);
 		}
