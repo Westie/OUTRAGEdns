@@ -1,24 +1,23 @@
---- 
 entities: 
-  domain: 
-    actions: 
-      add: 
-        id: false
-      edit: 
-        id: true
-      import: 
-        id: true
-      export: 
-        id: true
-      grid: 
-        default: true
-        id: false
-      remove: 
-        id: true
-      revisions: 
-        id: true
-      test: 
-        id: true
-    namespace: OUTRAGEdns.Domain
-    table: domains
-    type: domain
+    domain: 
+        actions: 
+            add: 
+                id: false
+            edit: 
+                id: true
+            import: 
+                id: true
+            export: 
+                id: true
+            grid: 
+                default: true
+                id: false
+            remove: 
+                id: true
+            revisions: 
+                id: true
+            test: 
+                id: true
+        namespace: OUTRAGEdns.Domain
+        table: domains
+        type: domain
