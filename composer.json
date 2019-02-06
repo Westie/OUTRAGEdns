@@ -1,4 +1,9 @@
 {
+	"autoload": {
+		"psr-4": {
+			"OUTRAGEdns\\":"app/lib"
+		}
+	},
 	"require": {
 		"filp/whoops": "^2.2",
 		"leth/ip-address": "dev-master",
@@ -20,11 +25,10 @@
 		{
 			"type": "git",
 			"url": "https://github.com/Westie/dns-zone-tokenizer.git"
+		},
+		{
+			"type": "git",
+			"url": "https://github.com/Westie/Silex.git"
 		}
-	],
-	"autoload": {
-		"psr-4": {
-			"OUTRAGEdns\\":"app/lib"
-		}
-	}
+	]
 }
