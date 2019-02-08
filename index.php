@@ -8,6 +8,10 @@
 if(!ini_get("date.timezone"))
 	date_default_timezone_set("UTC");
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+ini_set("xdebug.var_display_max_depth", 128);
+
 
 # what if Xerox wants to be secure?
 define("WWW_DIR", getenv("WWW_DIR") ?: $_SERVER["DOCUMENT_ROOT"]);
@@ -21,36 +25,43 @@ require WWW_DIR."/vendor/autoload.php";
 
 
 # get some namespaces set up
-use \OUTRAGEdns\Configuration\Configuration;
-use \OUTRAGEdns\DynamicAddress\Controller as DynamicAddressController;
+use \OUTRAGEdns\Configuration\ConfigurationFactory;
+use \OUTRAGEdns\Database\AdapterFactory;
+use \OUTRAGEdns\Database\SqlFactory;
 use \OUTRAGEdns\Request\Container as RequestContainer;
-use \OUTRAGEdns\User\Content as UserContent;
-use \OUTRAGEdns\User\Controller as UserController;
-use \OUTRAGElib\Structure\ObjectList;
+use \OUTRAGEdns\Request\EntityControllerProvider;
 use \Silex\Application;
 use \Silex\Provider\TwigServiceProvider;
+use \Symfony\Component\Cache\Simple\FilesystemCache;
 use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\Session\Session;
 use \Whoops\Handler\PrettyPageHandler;
 use \WhoopsSilex\WhoopsServiceProvider;
-
-
-# boot strap the config
-$configuration = Configuration::getInstance();
-
-
-# start the session
-$session = new Session();
-$session->start();
+use \Zend\Db\Adapter\Adapter;
 
 
 # let's mess about with silex now
 $app = new Application();
-$app->register(new TwigServiceProvider(), [ "twig.path" => TEMPLATE_DIR ]);
-
-$app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
 $app["debug"] = false;
+
+# do something with caching??
+$app["internal.cache"] = new FilesystemCache();
+
+# boot strap the config
+$app["internal.config"] = ConfigurationFactory::createConfiguration();
+
+# set up our DB adapter
+$app["internal.database.adapter"] = AdapterFactory::createAdapter($app);
+$app["internal.database.sql"] = SqlFactory::createSql($app);
+
+# start the session
+$app["internal.session"] = new Session();
+$app["internal.session"]->start();
+
+# we need somewhere to store some context data that does not fit properly
+# to say, something like sessions?
+$app["internal.context"] = new RequestContainer();
+$app["internal.godmode"] = false;
 
 
 # error handling?
@@ -64,114 +75,22 @@ if(!empty($app["debug"]))
 }
 
 
-# we might want to set some things up first
-$app->before(function(Request $request, Application $app) use ($session)
-{
-	# set session
-	$request->setSession($session);
-	
-	# if the user is not accessing the login page, and they're not logged in,
-	# we'll just go ahead and re-direct them to the login page!
-	if(!$session->get("authenticated_users_id"))
-	{
-		if(!preg_match("@^/login/@", $request->server->get("REQUEST_URI")))
-		{
-			header("Location: /login/");
-			exit;
-		}
-	}
-	
-	# twig doesn't have a nice and lovely way to store variables in a global
-	# context so we might as well use this as a sort of umbrella variable we
-	# can then pass to twig
-	$app["outragedns.context"] = new RequestContainer();
-	
-	# another thing we might need to do is define godmode
-	$request->godmode = false;
-	
-	if($session->has("authenticated_users_id"))
-	{	
-		if($session->has("_global_admin_mode"))
-			$request->godmode = $session->get("_global_admin_mode") && true;
-	}
-}, Application::EARLY_EVENT);
+# deal with templates
+$app->register(new TwigServiceProvider(), [
+	"twig.path" => TEMPLATE_DIR
+]);
 
-if($session->get("authenticated_users_id"))
-{
-	foreach($configuration->entities as $entity)
-	{
-		if(!$entity->actions)
-			continue;
-		
-		$class = "\\".str_replace(".", "\\", $entity->namespace)."\\Controller";
-		
-		if(!class_exists($class))
-			continue;
-		
-		$controller = new $class();
-		$endpoint = $entity->route ?: $entity->type."s";
-		
-		foreach($entity->actions as $action => $settings)
-		{
-			if($settings->default && !$settings->id)
-				$app->match("/".$endpoint."/", [ $controller, $action ])->before([ $controller, "init" ]);
-			
-			$route = $settings->global ? ("/".$action."/") : ("/".$endpoint."/".$action."/");
-			
-			if($settings->id)
-				$route .= "{id}/";
-			
-			$app->match($route, [ $controller, $action ])->before([ $controller, "init" ]);
-		}
-	}
-	
-	$app->match("/admin/on/", function(Request $request)
-	{
-		$session = $request->getSession();
-		
-		$user = new UserContent();
-		$user->load($session->get("authenticated_users_id"));
-		
-		if($user->admin)
-			$session->set("_global_admin_mode", 1);
-		
-		header("Location: /domains/grid/");
-		exit;
-	});
-	
-	$app->match("/admin/off/", function(Request $request)
-	{
-		$request->getSession()->remove("_global_admin_mode");
-		
-		header("Location: /domains/grid/");
-		exit;
-	});
-	
-	$app->match("/", function()
-	{
-		header("Location: /domains/grid/");
-		exit;
-	});
-}
-else
-{
-	$app->match("/", function()
-	{
-		header("Location: /login/");
-		exit;
-	});
-}
+$app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
 
-# authentication
-$controller = new UserController();
 
-if($session->get("authenticated_users_id"))
-	$app->match("/logout/", [ $controller, "logout" ])->before([ $controller, "init" ]);
-else
-	$app->match("/login/", [ $controller, "login" ])->before([ $controller, "init" ]);
+# deal with routing
+$app->mount("/", new EntityControllerProvider());
 
-# router is also required for the snazzy dynamic DNS feature
-$app->match("/dynamic-dns/{token}/", [ new DynamicAddressController(), "updateDynamicAddresses" ]);
 
-# run, run!!
+# and now hopefully everything has been set up, we shall go ahead and
+# run everything!
+$app->before(function(Request $request, Application $app) {
+	$request->setSession($app["internal.session"]);
+});
+
 $app->run();

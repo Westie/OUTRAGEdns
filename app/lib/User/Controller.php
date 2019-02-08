@@ -16,7 +16,7 @@ class Controller extends Entity\Controller
 	{
 		$this->form->rulesAdd();
 		
-		if($this->request->godmode)
+		if($this->app["internal.godmode"])
 			$this->form->rulesAdmin();
 		
 		if($this->request->getMethod() == "POST" && $this->request->request->has("commit"))
@@ -58,13 +58,13 @@ class Controller extends Entity\Controller
 	{
 		$this->form->rulesEdit();
 		
-		if($this->request->godmode)
+		if($this->app["internal.godmode"])
 			$this->form->rulesAdmin();
 		
 		if(!$this->content->id)
 			$this->content->load($id);
 		
-		if(!$this->content->id || (!$this->request->godmode && $this->content->id !== $this->user->id))
+		if(!$this->allowed(__FUNCTION__))
 		{
 			new Notification\Error("You don't have access to this user.");
 			
@@ -83,7 +83,7 @@ class Controller extends Entity\Controller
 					$connection->beginTransaction();
 					
 					$this->content->edit($this->form->getValues());
-
+					
 					$connection->commit();
 					
 					if($this->request->session->current_users_id == $this->content->id)
@@ -112,7 +112,7 @@ class Controller extends Entity\Controller
 		if(!$this->content->id)
 			$this->content->load($id);
 		
-		if(!$this->content->id || (!$this->request->godmode && $this->content->id !== $this->user->id))
+		if(!$this->allowed(__FUNCTION__))
 		{
 			new Notification\Error("You don't have access to this user.");
 			
@@ -149,7 +149,7 @@ class Controller extends Entity\Controller
 	 */
 	public function grid()
 	{
-		if(!$this->request->godmode)
+		if(!$this->app["internal.godmode"])
 		{
 			header("Location: /");
 			exit;

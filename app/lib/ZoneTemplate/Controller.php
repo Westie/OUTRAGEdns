@@ -65,7 +65,7 @@ class Controller extends Entity\Controller
 		if(!$this->content->id)
 			$this->content->load($id);
 		
-		if(!$this->content->id || (!$this->request->godmode && $this->content->user->id !== $this->user->id))
+		if(!$this->allowed(__FUNCTION__))
 		{
 			new Notification\Error("You don't have access to this zone template.");
 			
@@ -143,7 +143,7 @@ class Controller extends Entity\Controller
 		if(!$this->content->id)
 			$this->content->load($id);
 		
-		if(!$this->content->id || (!$this->request->godmode && $this->content->user->id !== $this->user->id))
+		if(!$this->allowed(__FUNCTION__))
 		{
 			new Notification\Error("You don't have access to this zone template.");
 			
@@ -185,7 +185,7 @@ class Controller extends Entity\Controller
 			$request = Content::find();
 			$request->order("id ASC");
 			
-			if(!$this->request->godmode)
+			if(!$this->app["internal.godmode"])
 				$request->where([ "owner" => $this->user->id ]);
 			
 			$this->response->templates = $request->get("objects");

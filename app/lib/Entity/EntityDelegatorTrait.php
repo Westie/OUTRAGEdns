@@ -26,22 +26,4 @@ trait EntityDelegatorTrait
 	{
 		return $this->namespace = (new ReflectionObject($this))->getNamespaceName();
 	}
-	
-	
-	/**
-	 *	Return the config object.
-	 */
-	protected function getter_config()
-	{
-		return Configuration::getInstance();
-	}
-	
-	
-	/**
-	 *	Accessing the database...
-	 */
-	protected function getter_db()
-	{
-		return Connection::getInstance();
-	}
 }

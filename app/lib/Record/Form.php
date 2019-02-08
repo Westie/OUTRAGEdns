@@ -21,7 +21,7 @@ class Form extends ElementList
 	 */
 	public function rules()
 	{
-		$configuration = Configuration::getInstance();
+		$config = $GLOBALS["app"]["internal.config"]; # @todo: please fix this!!
 		
 		# name
 		$name = new Element("name");
@@ -32,7 +32,7 @@ class Form extends ElementList
 		# type
 		$type = new Element("type");
 		$type->setLabel("Type");
-		$type->contains($configuration->records->types->toArray());
+		$type->contains($config->records->types->toArray());
 		$type->required(true);
 		$type->appendTo($this);
 		

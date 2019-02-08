@@ -14,12 +14,6 @@ use \Symfony\Component\HttpFoundation\Response;
 class Controller
 {
 	/**
-	 *	What is the application?
-	 */
-	protected $application = null;
-	
-	
-	/**
 	 *	What is the request?
 	 */
 	protected $request = null;
@@ -38,33 +32,22 @@ class Controller
 	
 	
 	/**
-	 *	Use custom delegator trait
+	 *	Add in required traits
 	 */
-	use DelegatorTrait;
-	
-	
-	/**
-	 *	Use custom delegator trait
-	 */
-	use EntityDelegatorTrait;
-	
-	
-	/**
-	 *	Use custom delegator trait
-	 */
+	use ApplicationDelegatorTrait;
 	use ControllerDelegatorTrait;
+	use DelegatorTrait;
+	use EntityDelegatorTrait;
 	
 	
 	/**
 	 *	This method is called before the path is executed - this can be used to prepare
 	 *	stuff like content before it's time for stuff to be performed on it.
 	 */
-	public function init(Request $request, Application $application)
+	public function init(Request $request)
 	{
-		$this->application = $application;
-		
 		$this->request = $request;
-		$this->response = $application["outragedns.context"];
+		$this->response = $this->app["internal.context"];
 		
 		# is our user logged in?
 		$this->user = new UserContent();
@@ -80,7 +63,16 @@ class Controller
 	
 	
 	/**
-	 *	Tells Silex to output this request as a HTML request, using the standard umbrella object
+	 *	Can a user perform an action?
+	 */
+	public function allowed($action)
+	{
+		return true;
+	}
+	
+	
+	/**
+	 *	Tell Silex to output this request as a HTML request, using the standard umbrella object
 	 *	as a source of data
 	 */
 	protected function toHTML($template = "index.twig")
@@ -92,7 +84,7 @@ class Controller
 		# since I might end up standardising the response objects, it's probably a
 		# good idea if I decide to populate only this bit if we're actually going to
 		# output to HTML via twig!
-		$context = $this->application["outragedns.context"];
+		$context = $this->app["internal.context"];
 		
 		if(!isset($context->fullwidth))
 			$context->fullwidth = false;
@@ -105,28 +97,19 @@ class Controller
 		if($this->form)
 			$context->form = $this->form;
 		
-		$context->config = Configuration::getInstance();
-		$context->godmode = false;
+		$context->config = $this->app["internal.config"];
+		$context->godmode = $this->app["internal.godmode"];
+		$context->user = $this->user;
 		
 		# is our user logged in?
 		if($session = $this->request->getSession())
 		{
-			$context->user = $this->user;
-			
-			if($this->request->godmode)
-			{
-				if($this->user->admin)
-					$context->godmode = $this->request->godmode;
-				else
-					$session->remove("_global_admin_mode");
-			}
-			
 			if($context->godmode)
 				$context->users = UserContent::find()->where("active = 1")->order("id ASC")->get("objects");
 		}
 		
 		# and now to render everything
-		$output = $this->application["twig"]->render($template, $context->toArray());
+		$output = $this->app["twig"]->render($template, $context->toArray());
 		
 		# oh, we might actually want to clean up any notifications
 		# that may have been generated

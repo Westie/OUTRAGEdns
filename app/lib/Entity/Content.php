@@ -13,33 +13,24 @@ use \OUTRAGElib\Structure\ObjectListRetrievalTrait;
 class Content extends ObjectList
 {
 	/**
-	 *	We need to be able to use our special delegators somehow
+	 *	Add in required traits
 	 */
+	use ApplicationDelegatorTrait;
+	use ContentDelegatorTrait;
 	use DelegatorTrait;
-	
-	
-	/**
-	 *	Allow the ability to populate this object with a method
-	 */
+	use EntityDelegatorTrait;
 	use ObjectListPopulationTrait;
-	
-	
-	/**
-	 *	Allow the ability retrieve stuff from this object
-	 */
 	use ObjectListRetrievalTrait;
 	
 	
 	/**
-	 *	Define relationships between namespaces and classes
+	 *	Called on construction
 	 */
-	use EntityDelegatorTrait;
-	
-	
-	/**
-	 *	Store our delegators for this class in here
-	 */
-	use ContentDelegatorTrait;
+	public function __construct()
+	{
+		foreach($this->db_fields as $key)
+			$this->list[$key] = null;
+	}
 	
 	
 	/**
@@ -198,5 +189,20 @@ class Content extends ObjectList
 		$statement->execute();
 		
 		return true;
+	}
+	
+	
+	/**
+	 *	Let's mute certain things
+	 */
+	public function __debugInfo()
+	{
+		$data = get_object_vars($this);
+		
+		unset($data["app"]);
+		unset($data["config"]);
+		unset($data["db"]);
+		
+		return $data;
 	}
 }

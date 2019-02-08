@@ -50,12 +50,20 @@ trait ContentDelegatorTrait
 		if(!$this->db_table)
 			return array();
 		
+		$cache = $this->app["internal.cache"];
+		$cache_key = "db_fields_".$this->db_table;
+		
+		if($cache->has($cache_key))
+			return $cache->get($cache_key);
+		
 		$metadata = new DbMetadata($this->db->getAdapter());
 		
 		$list = [];
 		
 		foreach($metadata->getTable($this->db_table)->getColumns() as $column)
 			$list[] = $column->getName();
+		
+		$cache->set($cache_key, $list, 86400);
 		
 		return $this->db_fields = $list;
 	}

@@ -32,7 +32,7 @@
 					OUTRAGEdns
 				</div>
 				
-				{% if user %}
+				{% if user.id is defined %}
 					<div class="hello">
 						Hi there, {{ user.username }}.
 					</div>

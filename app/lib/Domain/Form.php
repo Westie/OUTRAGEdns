@@ -17,7 +17,7 @@ class Form extends ElementList
 	 */
 	public function rules()
 	{
-		$configuration = Configuration::getInstance();
+		$config = $GLOBALS["app"]["internal.config"]; # @todo: please fix this!!
 		
 		# name
 		$name = new Element("name");
@@ -28,7 +28,7 @@ class Form extends ElementList
 		# type
 		$type = new Element("type");
 		$type->required(true);
-		$type->contains(array_keys($configuration->records->synctypes->toArray()));
+		$type->contains(array_keys($config->records->synctypes->toArray()));
 		$type->appendTo($this);
 		
 		# zone template
