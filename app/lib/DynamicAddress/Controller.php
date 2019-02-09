@@ -7,6 +7,7 @@ use \Exception;
 use \OUTRAGEdns\Entity;
 use \OUTRAGEdns\Notification;
 use \OUTRAGEdns\Response\EntityControllerResponse;
+use \Symfony\Component\HttpFoundation\Response;
 
 
 class Controller extends Entity\Controller
@@ -247,10 +248,7 @@ class Controller extends Entity\Controller
 		$this->content = Content::find()->where([ "token" => $token ])->get("first");
 		
 		if(!$this->content)
-		{
-			header("HTTP/1.1 404 Not Found");
-			exit;
-		}
+			return $this->app->abort(404);
 		
 		$connection = $this->db->getAdapter()->getDriver()->getConnection();
 		
@@ -270,6 +268,7 @@ class Controller extends Entity\Controller
 			
 			# and now hunt through all the records, being ruthless
 			# in their replacement
+			$count = 0;
 			$domains = [];
 			
 			foreach($this->content->records as $record)
@@ -281,6 +280,8 @@ class Controller extends Entity\Controller
 				{
 					if($target->type == $ip_type && $target->content != $ip_addr)
 					{
+						++$count;
+						
 						if(!isset($domains[$target->parent->id]))
 							$domains[$target->parent->id] = $target->parent;
 						
@@ -306,6 +307,6 @@ class Controller extends Entity\Controller
 			$connection->rollback();
 		}
 		
-		exit;
+		return new Response("", ($count > 0 ? 200 : 304));
 	}
 }

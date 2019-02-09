@@ -31,6 +31,7 @@ use \OUTRAGEdns\Auth\PowerAdminPasswordEncoder;
 use \OUTRAGEdns\Configuration\ConfigurationFactory;
 use \OUTRAGEdns\Database\AdapterFactory;
 use \OUTRAGEdns\Database\SqlFactory;
+use \OUTRAGEdns\DynamicAddress\Controller as DynamicAddressController;
 use \OUTRAGEdns\Entity\ControllerProvider as EntityControllerProvider;
 use \OUTRAGEdns\Request\Container as RequestContainer;
 use \Silex\Application;
@@ -119,6 +120,7 @@ $app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
 # deal with routing
 $app->mount("/", new EntityControllerProvider());
 $app->mount("/", new CredentialsControllerProvider());
+$app->match("/dynamic-dns/{token}/", [ new DynamicAddressController(), "updateDynamicAddresses" ]); 
 
 # run everything
 $app->boot();
