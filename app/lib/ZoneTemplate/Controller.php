@@ -105,11 +105,10 @@ class Controller extends Entity\Controller
 		
 		# oh, and it's a good idea to separate out the SOA record(s) from the other
 		# records, that way we can make the SOA independently editable
-		$this->response->records = array
-		(
+		$this->response->records = [
 			"soa" => [],
 			"list" => [],
-		);
+		];
 		
 		foreach($this->content->records as $record)
 		{
@@ -182,7 +181,7 @@ class Controller extends Entity\Controller
 			$request = Content::find();
 			$request->order("id ASC");
 			
-			if($this->app["session"]->get("godmode"))
+			if(!$this->app["session"]->get("godmode"))
 				$request->where([ "owner" => $this->user->id ]);
 			
 			$this->response->templates = $request->get("objects");
