@@ -22,7 +22,6 @@ class RDATA
 		"MX" => [
 			"PREFERENCE" => "prio",
 		],
-		
 		"SRV" => [
 			"PRIORITY" => "prio",
 		],
@@ -36,10 +35,12 @@ class RDATA
 	{
 		if(empty(self::$rdata))
 		{
-			if(file_exists(APP_DIR."/etc/RDATA/RDATA.yml"))
-				$data = file_get_contents(APP_DIR."/etc/RDATA/RDATA.yml");
+			$file = APP_DIR."/etc/RDATA/RDATA.yml";
 			
-			self::$rdata = Yaml::parse($data);
+			if(!file_exists($file))
+				throw new Exception("RDATA file is missing - are all submodules loaded?");
+			
+			self::$rdata = Yaml::parse(file_get_contents($file));
 		}
 		
 		return isset(self::$rdata[$type]);

@@ -254,8 +254,13 @@ class Controller extends Entity\Controller
 			
 			# and then we need to go through all the records we have, change
 			# the value to what is required...
-			$ip_addr = $_SERVER["REMOTE_ADDR"];
+			$ip_addr = null;
 			$ip_type = null;
+			
+			if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+				$ip_addr = array_map("trim", explode(",", $_SERVER["HTTP_X_FORWARDED_FOR"]))[0];
+			elseif(!empty($_SERVER["REMOTE_ADDR"]))
+				$ip_addr = $_SERVER["REMOTE_ADDR"];
 			
 			if(filter_var($ip_addr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
 				$ip_type = "A";
