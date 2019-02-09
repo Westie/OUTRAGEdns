@@ -1,5 +1,13 @@
 {% import "/includes/macros/form.twig" as forms %}
 
+{% if security_last_error is defined %}
+	<div class="notification-header" style="max-width: 1024px; max-width: 1024px; margin: 0 auto;">
+		<div class="notification-item red">
+			<i class="fa fa-exclamation-circle"></i> {{ security_last_error }}
+		</div>
+	</div>
+{% endif %}
+
 <div class="login-container">
 	<h1>OUTRAGEdns</h1>
 	
