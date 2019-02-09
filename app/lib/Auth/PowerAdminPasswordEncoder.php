@@ -20,6 +20,13 @@ class PowerAdminPasswordEncoder implements \Symfony\Component\Security\Core\Enco
 	 */
 	public function isPasswordValid($encoded, $raw, $salt)
 	{
-		return sha1($raw) === $encoded;
+		$strlen = strlen($encoded);
+		
+		if($strlen === 32)
+			return sha1($raw) === $encoded;
+		elseif($strlen === 40)
+			return sha1($raw) === $encoded;
+		
+		return false;
 	}
 }
