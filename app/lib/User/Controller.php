@@ -146,11 +146,8 @@ class Controller extends Entity\Controller
 	 */
 	public function grid()
 	{
-		if($this->app["session"]->get("godmode"))
-		{
-			header("Location: /");
-			exit;
-		}
+		if(!$this->app["session"]->get("godmode"))
+			return $this->app->redirect("/");
 		
 		if(!$this->users)
 		{

@@ -2,4 +2,6 @@
 	{% include "objects/user/edit.twig" %}
 {% elseif request.url[1] == "login" %}
 	{% include "objects/user/login.twig" %}
+{% else %}
+	{% include "objects/user/grid.twig" %}
 {% endif %}
