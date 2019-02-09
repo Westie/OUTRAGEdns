@@ -30,6 +30,9 @@ START TRANSACTION;
 		(null, "admin", SHA1("ifacetherisk"), "Boring User", "outragedns@localhost", 1, 1);
 COMMIT;
 
+-- for poweradmin users
+UPDATE users SET admin = 1 WHERE username = "admin";
+
 
 -- This section is for custom dynamic DNS interfaces
 -- DW, 09/01
