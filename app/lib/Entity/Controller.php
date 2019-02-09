@@ -58,6 +58,14 @@ class Controller
 	 */
 	public function allowed($action)
 	{
-		return true;
+		if($this->content->id)
+		{
+			if($this->app["session"]->get("godmode"))
+				return true;
+			
+			return $this->content->user->id === $this->user->id;
+		}
+		
+		return false;
 	}
 }

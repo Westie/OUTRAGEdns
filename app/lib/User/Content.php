@@ -3,8 +3,9 @@
 
 namespace OUTRAGEdns\User;
 
-use \OUTRAGEdns\Entity;
+use \OUTRAGEdns\Auth\PowerAdminPasswordEncoder as DefaultPasswordEncoder;
 use \OUTRAGEdns\Domain;
+use \OUTRAGEdns\Entity;
 use \OUTRAGEdns\ZoneTemplate;
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\Security\Core\User\UserInterface;
@@ -65,7 +66,9 @@ class Content extends Entity\Content implements UserInterface
 	 */
 	public function save($post = array())
 	{
-		throw new Exception("Password handling is needed here");
+		if(array_key_exists("password", $post) && strlen($post["password"]) > 0)
+			$post["password"] = (new DefaultPasswordEncoder())->encodePassword($post["password"], null);
+		
 		return parent::save($post);
 	}
 	
@@ -75,7 +78,9 @@ class Content extends Entity\Content implements UserInterface
 	 */
 	public function edit($post = array())
 	{
-		throw new Exception("Password handling is needed here");
+		if(array_key_exists("password", $post) && strlen($post["password"]) > 0)
+			$post["password"] = (new DefaultPasswordEncoder())->encodePassword($post["password"], null);
+		
 		return parent::edit($post);
 	}
 	

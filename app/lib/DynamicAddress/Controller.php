@@ -97,7 +97,7 @@ class Controller extends Entity\Controller
 		
 		if(!$this->allowed(__FUNCTION__))
 		{
-			new Notification\Error("You don't have access to this domain.");
+			new Notification\Error("You don't have access to this dynamic address.");
 			
 			return $this->app->redirect($this->content->actions->grid);
 		}
