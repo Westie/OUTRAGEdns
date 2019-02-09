@@ -5,6 +5,7 @@ namespace OUTRAGEdns\ZoneTemplate;
 
 use \OUTRAGEdns\Entity;
 use \OUTRAGEdns\Notification;
+use \OUTRAGEdns\Response\EntityControllerResponse;
 
 
 class Controller extends Entity\Controller
@@ -53,7 +54,7 @@ class Controller extends Entity\Controller
 		if(!empty($this->config->records->soa->nameservers))
 			$this->response->nameservers = array_merge($this->response->nameservers, $this->config->records->soa->nameservers->toArray());
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -131,7 +132,7 @@ class Controller extends Entity\Controller
 		
 		$this->response->nameservers = array_unique($this->response->nameservers);
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -185,12 +186,12 @@ class Controller extends Entity\Controller
 			$request = Content::find();
 			$request->order("id ASC");
 			
-			if(!$this->app["internal.godmode"])
+			if($this->app["session"]->get("godmode"))
 				$request->where([ "owner" => $this->user->id ]);
 			
 			$this->response->templates = $request->get("objects");
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 }

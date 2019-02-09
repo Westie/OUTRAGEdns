@@ -6,6 +6,7 @@ namespace OUTRAGEdns\DynamicAddress;
 use \Exception;
 use \OUTRAGEdns\Entity;
 use \OUTRAGEdns\Notification;
+use \OUTRAGEdns\Response\EntityControllerResponse;
 
 
 class Controller extends Entity\Controller
@@ -82,7 +83,7 @@ class Controller extends Entity\Controller
 		
 		$this->response->available_records = $list;
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -174,7 +175,7 @@ class Controller extends Entity\Controller
 		
 		$this->response->available_records = $list;
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -228,13 +229,13 @@ class Controller extends Entity\Controller
 			$request = Content::find();
 			$request->order("id ASC");
 			
-			if(!$this->app["internal.godmode"])
+			if(!$this->app["session"]->get("godmode"))
 				$request->where([ "owner" => $this->user->id ]);
 			
 			$this->response->domains = $request->get("objects");
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	

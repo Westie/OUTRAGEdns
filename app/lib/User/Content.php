@@ -7,9 +7,10 @@ use \OUTRAGEdns\Entity;
 use \OUTRAGEdns\Domain;
 use \OUTRAGEdns\ZoneTemplate;
 use \Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\Security\Core\User\UserInterface;
 
 
-class Content extends Entity\Content
+class Content extends Entity\Content implements UserInterface
 {
 	/**
 	 *	What zone templates does this user own?
@@ -64,9 +65,7 @@ class Content extends Entity\Content
 	 */
 	public function save($post = array())
 	{
-		if(!empty($post["password"]))
-			$post["password"] = sha1($post["password"]);
-		
+		throw new Exception("Password handling is needed here");
 		return parent::save($post);
 	}
 	
@@ -76,47 +75,57 @@ class Content extends Entity\Content
 	 */
 	public function edit($post = array())
 	{
-		if(empty($post["password"]))
-			unset($post["password"]);
-		else
-			$post["password"] = sha1($post["password"]);
-		
+		throw new Exception("Password handling is needed here");
 		return parent::edit($post);
 	}
 	
 	
 	/**
-	 *	Shall we authenticate this user?
+	 *	UserInterface: get roles
 	 */
-	public function authenticate(Request $request, $credentials)
+	public function getRoles()
 	{
-		if(!isset($credentials["username"]) || !isset($credentials["password"]))
-			return false;
+		$roles = [ "ROLE_USER" ];
 		
-		$target = $this->find()
-		               ->where([ "username" => $credentials["username"] ])
-		               ->where([ "password" => sha1($credentials["password"]) ])
-		               ->where([ "active" => 1 ])
-		               ->get("first");
+		if($this->admin)
+			$roles[] = "ROLE_ADMIN";
 		
-		if(!$target)
-			return false;
-		
-		$session = $request->getSession();
-		
-		$session->invalidate();
-		$session->set("authenticated_users_id", $target->id);
-		
-		return $this->load($target->id);
+		return $roles;
 	}
 	
 	
 	/**
-	 *	Let's log this user out.
+	 *	UserInterface: get password hash
 	 */
-	public function logout(Request $request)
+	public function getPassword()
 	{
-		$request->getSession()->invalidate();
-		return true;
+		return $this->password;
+	}
+	
+	
+	/**
+	 *	UserInterface: get salt
+	 */
+	public function getSalt()
+	{
+		return null;
+	}
+	
+	
+	/**
+	 *	UserInterface: get username
+	 */
+	public function getUsername()
+	{
+		return $this->username;
+	}
+	
+	
+	/**
+	 *	UserInterface: remove sensitive data
+	 */
+	public function eraseCredentials()
+	{
+		return;
 	}
 }

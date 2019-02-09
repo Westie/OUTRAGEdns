@@ -9,6 +9,7 @@ use \OUTRAGEdns\Record;
 use \OUTRAGEdns\ZoneTemplate;
 use \Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\Yaml\Yaml;
+use \OUTRAGEdns\Response\EntityControllerResponse;
 
 
 class Controller extends Entity\Controller
@@ -54,7 +55,7 @@ class Controller extends Entity\Controller
 		if(!$this->response->templates)
 			$this->response->templates = ZoneTemplate\Content::find()->where([ "owner" => $this->user->id ])->order("name ASC")->get("objects");
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -190,7 +191,7 @@ class Controller extends Entity\Controller
 		
 		$this->response->nameservers = array_unique($this->response->nameservers);
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -248,7 +249,7 @@ class Controller extends Entity\Controller
 			}
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -380,7 +381,7 @@ class Controller extends Entity\Controller
 		
 		$this->response->revisions = iterator_to_array($result);
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -422,7 +423,7 @@ class Controller extends Entity\Controller
 		$this->response->nameservers = $nameservers;
 		$this->response->results = $results;
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -437,12 +438,12 @@ class Controller extends Entity\Controller
 			$request->join("zones", "zones.domain_id = domains.id");
 			$request->order("id ASC");
 			
-			if(!$this->app["internal.godmode"])
+			if(!$this->app["session"]->get("godmode"))
 				$request->where([ "zones.owner" => $this->user->id ]);
 			
 			$this->response->domains = $request->get("objects");
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 }

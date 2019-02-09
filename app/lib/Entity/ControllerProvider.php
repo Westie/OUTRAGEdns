@@ -17,6 +17,11 @@ class ControllerProvider implements ControllerProviderInterface
 		$entities = [];
 		$controllers = $app["controllers_factory"];
 		
+		# force redirect to default page
+		$controllers->match("/", function(Application $app) {
+			return $app->redirect("/domains/");
+		});
+		
 		# go through and figure out which entities one is allowed to access
 		foreach($app["internal.config"]->entities as $entity)
 		{

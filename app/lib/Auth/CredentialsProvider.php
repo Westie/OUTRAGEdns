@@ -3,10 +3,10 @@
 
 namespace OUTRAGEdns\Auth;
 
+use \OUTRAGEdns\User\Content as UserContent;
 use \Silex\Application;
 use \Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use \Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use \Symfony\Component\Security\Core\User\User;
 use \Symfony\Component\Security\Core\User\UserInterface;
 use \Symfony\Component\Security\Core\User\UserProviderInterface;
 use \Zend\Db\Sql\Expression;
@@ -36,9 +36,6 @@ class CredentialsProvider implements UserProviderInterface
 	 */
 	public function refreshUser(UserInterface $user)
 	{
-		if(!$user instanceof User)
-			throw new UnsupportedUserException("Invalid input");
-		
 		return $this->loadUserByUsername($user->getUsername());
 	}
 	
@@ -48,7 +45,7 @@ class CredentialsProvider implements UserProviderInterface
 	 */
 	public function supportsClass($class)
 	{
-		return $class === User::class;
+		return $class === UserContent::class;
 	}
 	
 	
@@ -57,7 +54,11 @@ class CredentialsProvider implements UserProviderInterface
 	 */
 	public function loadUserByUsername($username)
 	{
-		var_dump($username);
-		exit;
+		$object = UserContent::find()->where([ "username" => $username ])->get("first");
+		
+		if(!$object)
+			throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+		
+		return $object;
 	}
 }

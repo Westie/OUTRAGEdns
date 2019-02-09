@@ -35,6 +35,7 @@ use \OUTRAGEdns\Entity\ControllerProvider as EntityControllerProvider;
 use \OUTRAGEdns\Request\Container as RequestContainer;
 use \Silex\Application;
 use \Silex\Provider\SecurityServiceProvider;
+use \Silex\Provider\SessionServiceProvider;
 use \Silex\Provider\TwigServiceProvider;
 use \Symfony\Component\Cache\Simple\FilesystemCache;
 use \Symfony\Component\HttpFoundation\Request;
@@ -48,6 +49,7 @@ use \Zend\Db\Adapter\Adapter;
 $app = new Application();
 $app["debug"] = true;
 
+# debugging
 if(!empty($app["debug"]))
 {
 	$whoops = new \Whoops\Run();
@@ -57,7 +59,10 @@ if(!empty($app["debug"]))
 	$app->register(new WhoopsServiceProvider());
 }
 
-# do something with caching??
+# start the session
+$app->register(new SessionServiceProvider());
+
+# do something with caching
 $app["internal.cache"] = new FilesystemCache();
 
 # boot strap the config
@@ -67,27 +72,15 @@ $app["internal.config"] = ConfigurationFactory::createConfiguration();
 $app["internal.database.adapter"] = AdapterFactory::createAdapter($app);
 $app["internal.database.sql"] = SqlFactory::createSql($app);
 
-# start the session
-$app["internal.session"] = new Session();
-$app["internal.session"]->start();
-
 # we need somewhere to store some context data that does not fit properly
 # to say, something like sessions?
 $app["internal.context"] = new RequestContainer();
-$app["internal.godmode"] = false;
-
-# deal with templates
-$app->register(new TwigServiceProvider(), [
-	"twig.path" => TEMPLATE_DIR
-]);
-
-$app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
 
 # deal with authentication (will the session be used here??)
 $app->register(new SecurityServiceProvider(), [
 	"security.firewalls" => [
 		"login" => [
-			"pattern" => "/login/",
+			"pattern" => "^/login/$",
 			"anonymous" => true,
 		],
 		"default" => [
@@ -95,6 +88,12 @@ $app->register(new SecurityServiceProvider(), [
 			"form" => [
 				"login_path" => "/login/",
 				"check_path" => "/login/check/",
+				"username_parameter" => "username",
+				"password_parameter" => "password",
+			],
+			"logout" => [
+				"logout_path" => "/logout/",
+				"invalidate_session" => true,
 			],
 			"users" => new CredentialsProvider($app),
 		],
@@ -102,15 +101,21 @@ $app->register(new SecurityServiceProvider(), [
 	"security.default_encoder" => new PowerAdminPasswordEncoder(),
 ]);
 
+# for some reason this has to be called, to allow things within twig to
+# be registered correctly?
+$app['security.firewall_map'];
+
+# deal with templates
+$app->register(new TwigServiceProvider(), [
+	"twig.path" => TEMPLATE_DIR,
+]);
+
+$app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
+
 # deal with routing
 $app->mount("/", new EntityControllerProvider());
 $app->mount("/", new CredentialsControllerProvider());
 
-
-# and now hopefully everything has been set up, we shall go ahead and
-# run everything!
-$app->before(function(Request $request, Application $app) {
-	$request->setSession($app["internal.session"]);
-});
-
+# run everything
+$app->boot();
 $app->run();

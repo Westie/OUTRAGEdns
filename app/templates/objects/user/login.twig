@@ -3,7 +3,7 @@
 <div class="login-container">
 	<h1>OUTRAGEdns</h1>
 	
-	<form class="form-horizontal" method="post">
+	<form class="form-horizontal" method="post" action="/login/check/">
 		{{ forms.text({     title: "Username", field: "username" }) }}
 		{{ forms.password({ title: "Password", field: "password" }) }}
 		

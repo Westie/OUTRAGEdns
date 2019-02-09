@@ -32,7 +32,7 @@
 	</li>
 </ul>
 
-{% if user.admin %}
+{% if is_granted("ROLE_ADMIN") %}
 	<ul class="offset-top">
 		{% if not godmode %}
 			<li>

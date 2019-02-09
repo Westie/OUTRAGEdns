@@ -5,6 +5,7 @@ namespace OUTRAGEdns\User;
 
 use \OUTRAGEdns\Entity;
 use \OUTRAGEdns\Notification;
+use \OUTRAGEdns\Response\EntityControllerResponse;
 
 
 class Controller extends Entity\Controller
@@ -16,7 +17,7 @@ class Controller extends Entity\Controller
 	{
 		$this->form->rulesAdd();
 		
-		if($this->app["internal.godmode"])
+		if($this->app["session"]->get("godmode"))
 			$this->form->rulesAdmin();
 		
 		if($this->request->getMethod() == "POST" && $this->request->request->has("commit"))
@@ -47,7 +48,7 @@ class Controller extends Entity\Controller
 			}
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -58,7 +59,7 @@ class Controller extends Entity\Controller
 	{
 		$this->form->rulesEdit();
 		
-		if($this->app["internal.godmode"])
+		if($this->app["session"]->get("godmode"))
 			$this->form->rulesAdmin();
 		
 		if(!$this->content->id)
@@ -100,7 +101,7 @@ class Controller extends Entity\Controller
 			}
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -149,7 +150,7 @@ class Controller extends Entity\Controller
 	 */
 	public function grid()
 	{
-		if(!$this->app["internal.godmode"])
+		if($this->app["session"]->get("godmode"))
 		{
 			header("Location: /");
 			exit;
@@ -163,7 +164,7 @@ class Controller extends Entity\Controller
 			$this->users = $request->get("objects");
 		}
 		
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 	
 	
@@ -181,6 +182,6 @@ class Controller extends Entity\Controller
 	 */
 	public function dashboard()
 	{
-		return $this->toHTML();
+		return EntityControllerResponse::createResponse($this);
 	}
 }
