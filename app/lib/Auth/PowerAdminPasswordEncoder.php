@@ -23,7 +23,7 @@ class PowerAdminPasswordEncoder implements \Symfony\Component\Security\Core\Enco
 		$strlen = strlen($encoded);
 		
 		if($strlen === 32)
-			return sha1($raw) === $encoded;
+			return md5($raw) === $encoded;
 		elseif($strlen === 40)
 			return sha1($raw) === $encoded;
 		
