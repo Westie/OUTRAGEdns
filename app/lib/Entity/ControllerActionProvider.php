@@ -48,11 +48,18 @@ class ControllerActionProvider implements ControllerProviderInterface
 			if($settings->id)
 				$route .= "{id}/";
 			
-			$controllers->match($route, [ $this->controller, $action ])->before([ $this->controller, "init" ]);
-			
-			# define grid view route
-			if(!empty($settings->default) && empty($settings->id))
-				$controllers->match("/", [ $this->controller, $action ])->before([ $this->controller, "init" ]);
+			if(!empty($settings->global))
+			{
+				$app->match($route, [ $this->controller, $action ])->before([ $this->controller, "init" ]);
+			}
+			else
+			{
+				$controllers->match($route, [ $this->controller, $action ])->before([ $this->controller, "init" ]);
+				
+				# define grid view route
+				if(!empty($settings->default) && empty($settings->id))
+					$controllers->match("/", [ $this->controller, $action ])->before([ $this->controller, "init" ]);
+			}
 		}
 		
 		return $controllers;

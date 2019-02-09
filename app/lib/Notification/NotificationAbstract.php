@@ -23,13 +23,12 @@ abstract class NotificationAbstract
 	 */
 	public function __construct($message = "")
 	{
-		global $session;
+		$key = "_notification_messages";
+		$session = $GLOBALS["app"]["session"];
 		
 		$this->message = $message;
 		
-		$key = "_notification_messages";
 		$list = $session->get($key) ?: [];
-		
 		$list[] = $this;
 		
 		$session->set($key, $list);

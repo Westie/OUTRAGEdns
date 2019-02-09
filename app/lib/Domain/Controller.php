@@ -40,8 +40,7 @@ class Controller extends Entity\Controller
 					
 					new Notification\Success("Successfully created the domain: ".$this->content->name);
 					
-					header("Location: ".$this->content->actions->edit);
-					exit;
+					return $this->app->redirect($this->content->actions->edit);
 				}
 				catch(Exception $exception)
 				{
@@ -71,8 +70,7 @@ class Controller extends Entity\Controller
 		{
 			new Notification\Error("You don't have access to this domain.");
 			
-			header("Location: ".$this->content->actions->grid);
-			exit;
+			return $this->app->redirect($this->content->actions->grid);
 		}
 		
 		if($this->request->getMethod() == "POST" && $this->request->request->has("commit"))
@@ -137,8 +135,7 @@ class Controller extends Entity\Controller
 			
 			if(!count($response))
 			{
-				header("Location: ".$this->content->actions->edit);
-				exit;
+				return $this->app->redirect($this->content->actions->edit);
 			}
 			
 			$state = unserialize($response[0]["state"]);
@@ -211,8 +208,7 @@ class Controller extends Entity\Controller
 		{
 			new Notification\Error("You don't have access to this domain.");
 			
-			header("Location: ".$this->content->actions->grid);
-			exit;
+			return $this->app->redirect($this->content->actions->grid);
 		}
 		
 		if($this->request->getMethod() == "POST" && $this->request->request->has("commit"))
@@ -234,8 +230,7 @@ class Controller extends Entity\Controller
 					{
 						new Notification\Success("Successfully imported records into this domain.");
 						
-						header("Location: ".$this->content->actions->edit);
-						exit;
+						return $this->app->redirect($this->content->actions->edit);
 					}
 				}
 				else
@@ -265,8 +260,7 @@ class Controller extends Entity\Controller
 		{
 			new Notification\Error("You don't have access to this domain.");
 			
-			header("Location: ".$this->content->actions->grid);
-			exit;
+			return $this->app->redirect($this->content->actions->grid);
 		}
 		
 		$connection = $this->db->getAdapter()->getDriver()->getConnection();
@@ -288,8 +282,7 @@ class Controller extends Entity\Controller
 			new Notification\Error("This zone template wasn't removed due to an internal error.");
 		}
 		
-		header("Location: ".$this->content->actions->grid);
-		exit;
+		return $this->app->redirect($this->content->actions->grid);
 	}
 	
 	
@@ -305,8 +298,7 @@ class Controller extends Entity\Controller
 		{
 			new Notification\Error("You don't have access to this domain.");
 			
-			header("Location: ".$this->content->actions->grid);
-			exit;
+			return $this->app->redirect($this->content->actions->grid);
 		}
 		
 		$format = $this->request->query->get("format") ?: "json";
@@ -363,8 +355,7 @@ class Controller extends Entity\Controller
 		{
 			new Notification\Error("You don't have access to this domain.");
 			
-			header("Location: ".$this->content->actions->grid);
-			exit;
+			return $this->app->redirect($this->content->actions->grid);
 		}
 		
 		$select = $this->db->select();
@@ -397,8 +388,7 @@ class Controller extends Entity\Controller
 		{
 			new Notification\Error("You don't have access to this domain.");
 			
-			header("Location: ".$this->content->actions->grid);
-			exit;
+			return $this->app->redirect($this->content->actions->grid);
 		}
 		
 		# might we have support for revisions? meh, probably not
