@@ -1,3 +1,7 @@
+{% if index is not defined %}
+	{% set index = null %}
+{% endif %}
+
 <tr{% if class is defined %} class="{{ class|e }}"{% endif %}>
 	<td class="move-bar">
 	</td>

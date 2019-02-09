@@ -47,7 +47,7 @@ use \Zend\Db\Adapter\Adapter;
 
 # let's mess about with silex now
 $app = new Application();
-$app["debug"] = true;
+$app["debug"] = false;
 
 # debugging
 if(!empty($app["debug"]))
@@ -81,6 +81,10 @@ $app->register(new SecurityServiceProvider(), [
 	"security.firewalls" => [
 		"login" => [
 			"pattern" => "^/login/$",
+			"anonymous" => true,
+		],
+		"dynamic-address" => [
+			"pattern" => "^/dynamic-dns/",
 			"anonymous" => true,
 		],
 		"default" => [
