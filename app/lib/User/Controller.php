@@ -177,4 +177,19 @@ class Controller extends Entity\Controller
 	{
 		return EntityControllerResponse::createResponse($this);
 	}
+	
+	
+	/**
+	 *	Can a user perform an action?
+	 */
+	public function allowed($action)
+	{
+		if($this->content->id)
+		{
+			if($this->user->id == $this->content->id)
+				return true;
+		}
+		
+		return parent::allowed($action);
+	}
 }
