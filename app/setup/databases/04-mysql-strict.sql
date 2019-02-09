@@ -1,3 +1,5 @@
+-- strict mode corrections
+
 ALTER TABLE `users` 
 	CHANGE COLUMN `active` `active` TINYINT(4) NOT NULL DEFAULT 0,
 	CHANGE COLUMN `description` `description` TEXT NOT NULL DEFAULT "",
