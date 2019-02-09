@@ -1,13 +1,13 @@
 <?php
 
 
-namespace OUTRAGEdns\Request;
+namespace OUTRAGEdns\Entity;
 
 use \Silex\Application;
 use \Silex\Api\ControllerProviderInterface;
 
 
-class EntityControllerProvider implements ControllerProviderInterface
+class ControllerProvider implements ControllerProviderInterface
 {
 	/**
 	 *	Called when connecting an app to this controller provider
@@ -36,7 +36,7 @@ class EntityControllerProvider implements ControllerProviderInterface
 			$endpoint = "/".($entity->route ?? $entity->type."s");
 			$controller = new $class();
 			
-			$controllers->mount($endpoint, (new EntityActionControllerProvider($controller, $entity))->connect($app));
+			$controllers->mount($endpoint, (new ControllerActionProvider($controller, $entity))->connect($app));
 		}
 		
 		return $controllers;

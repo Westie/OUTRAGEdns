@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OUTRAGEdns\Request;
+namespace OUTRAGEdns\Entity;
 
 use \OUTRAGEdns\Configuration\Configuration;
 use \OUTRAGEdns\Entity\Controller;
@@ -9,7 +9,7 @@ use \Silex\Api\ControllerProviderInterface;
 use \Silex\Application;
 
 
-class EntityActionControllerProvider implements ControllerProviderInterface
+class ControllerActionProvider implements ControllerProviderInterface
 {
 	/**
 	 *	Store controller

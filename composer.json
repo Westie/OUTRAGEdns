@@ -19,7 +19,8 @@
 		"texthtml/whoops-silex": "^1.0",
 		"twig/extensions": "*",
 		"twig/twig": "^2.4",
-		"zendframework/zend-db": "^2.8"
+		"zendframework/zend-db": "^2.8",
+		"symfony/security": "^4.2"
 	},
 	"repositories": [
 		{

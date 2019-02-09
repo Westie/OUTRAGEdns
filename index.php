@@ -25,12 +25,16 @@ require WWW_DIR."/vendor/autoload.php";
 
 
 # get some namespaces set up
+use \OUTRAGEdns\Auth\CredentialsControllerProvider;
+use \OUTRAGEdns\Auth\CredentialsProvider;
+use \OUTRAGEdns\Auth\PowerAdminPasswordEncoder;
 use \OUTRAGEdns\Configuration\ConfigurationFactory;
 use \OUTRAGEdns\Database\AdapterFactory;
 use \OUTRAGEdns\Database\SqlFactory;
+use \OUTRAGEdns\Entity\ControllerProvider as EntityControllerProvider;
 use \OUTRAGEdns\Request\Container as RequestContainer;
-use \OUTRAGEdns\Request\EntityControllerProvider;
 use \Silex\Application;
+use \Silex\Provider\SecurityServiceProvider;
 use \Silex\Provider\TwigServiceProvider;
 use \Symfony\Component\Cache\Simple\FilesystemCache;
 use \Symfony\Component\HttpFoundation\Request;
@@ -42,7 +46,16 @@ use \Zend\Db\Adapter\Adapter;
 
 # let's mess about with silex now
 $app = new Application();
-$app["debug"] = false;
+$app["debug"] = true;
+
+if(!empty($app["debug"]))
+{
+	$whoops = new \Whoops\Run();
+	$whoops->pushHandler(new PrettyPageHandler());
+	$whoops->register();
+
+	$app->register(new WhoopsServiceProvider());
+}
 
 # do something with caching??
 $app["internal.cache"] = new FilesystemCache();
@@ -63,18 +76,6 @@ $app["internal.session"]->start();
 $app["internal.context"] = new RequestContainer();
 $app["internal.godmode"] = false;
 
-
-# error handling?
-if(!empty($app["debug"]))
-{
-	$whoops = new \Whoops\Run();
-	$whoops->pushHandler(new PrettyPageHandler());
-	$whoops->register();
-
-	$app->register(new WhoopsServiceProvider());
-}
-
-
 # deal with templates
 $app->register(new TwigServiceProvider(), [
 	"twig.path" => TEMPLATE_DIR
@@ -82,9 +83,28 @@ $app->register(new TwigServiceProvider(), [
 
 $app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
 
+# deal with authentication (will the session be used here??)
+$app->register(new SecurityServiceProvider(), [
+	"security.firewalls" => [
+		"login" => [
+			"pattern" => "/login/",
+			"anonymous" => true,
+		],
+		"default" => [
+			"pattern" => ".*",
+			"form" => [
+				"login_path" => "/login/",
+				"check_path" => "/login/check/",
+			],
+			"users" => new CredentialsProvider($app),
+		],
+	],
+	"security.default_encoder" => new PowerAdminPasswordEncoder(),
+]);
 
 # deal with routing
 $app->mount("/", new EntityControllerProvider());
+$app->mount("/", new CredentialsControllerProvider());
 
 
 # and now hopefully everything has been set up, we shall go ahead and

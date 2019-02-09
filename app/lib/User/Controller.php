@@ -183,42 +183,4 @@ class Controller extends Entity\Controller
 	{
 		return $this->toHTML();
 	}
-	
-	
-	/**
-	 *	Called when we want to let someone into the panel.
-	 */
-	public function login()
-	{
-		$this->response->fullwidth = true;
-		
-		if($this->request->getMethod() == "POST" && $this->request->request->has("commit"))
-		{
-			$form = new FormAuthenticate();
-			
-			if($form->validate($this->request->request))
-			{
-				if($this->content->authenticate($this->request, $form->getValues()))
-				{
-					header("Location: /");
-					exit;
-				}
-			}
-		}
-		
-		return $this->toHTML();
-	}
-	
-	
-	/**
-	 *	Called when we want to log someone out of the panel.
-	 */
-	public function logout()
-	{
-		if($this->user)
-			$this->user->logout($this->request);
-		
-		header("Location: /");
-		exit;
-	}
 }
