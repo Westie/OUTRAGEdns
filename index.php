@@ -25,12 +25,14 @@ require WWW_DIR."/vendor/autoload.php";
 
 
 # get some namespaces set up
+use \OUTRAGEdns\Api\ControllerProvider as ApiControllerProvider;
 use \OUTRAGEdns\Auth\CredentialsControllerProvider;
 use \OUTRAGEdns\Auth\CredentialsProvider;
 use \OUTRAGEdns\Auth\PowerAdminPasswordEncoder;
 use \OUTRAGEdns\Configuration\ConfigurationFactory;
 use \OUTRAGEdns\Database\AdapterFactory;
 use \OUTRAGEdns\Database\SqlFactory;
+use \OUTRAGEdns\Database\TransactionWrapperFactory;
 use \OUTRAGEdns\DynamicAddress\Controller as DynamicAddressController;
 use \OUTRAGEdns\Entity\ControllerProvider as EntityControllerProvider;
 use \OUTRAGEdns\Request\Container as RequestContainer;
@@ -43,12 +45,11 @@ use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Session\Session;
 use \Whoops\Handler\PrettyPageHandler;
 use \WhoopsSilex\WhoopsServiceProvider;
-use \Zend\Db\Adapter\Adapter;
 
 
 # let's mess about with silex now
 $app = new Application();
-$app["debug"] = false;
+$app["debug"] = true;
 
 # debugging
 if(!empty($app["debug"]))
@@ -80,6 +81,10 @@ $app["internal.context"] = new RequestContainer();
 # deal with authentication (will the session be used here??)
 $app->register(new SecurityServiceProvider(), [
 	"security.firewalls" => [
+		"api" => [
+			"pattern" => "^/api/",
+			"anonymous" => true,
+		],
 		"login" => [
 			"pattern" => "^/login/$",
 			"anonymous" => true,
@@ -120,7 +125,8 @@ $app["twig"]->addExtension(new Twig_Extensions_Extension_Text());
 # deal with routing
 $app->mount("/", new EntityControllerProvider());
 $app->mount("/", new CredentialsControllerProvider());
-$app->match("/dynamic-dns/{token}/", [ new DynamicAddressController(), "updateDynamicAddresses" ]); 
+$app->mount("/api/", new ApiControllerProvider());
+$app->match("/dynamic-dns/{token}/", [ new DynamicAddressController(), "updateDynamicAddresses" ]);
 
 # run everything
 $app->boot();

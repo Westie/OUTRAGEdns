@@ -5,3 +5,7 @@ database:
         port: 3306
         username: root
         password: secret
+
+web-api:
+    base-uri: http://localhost:8081
+    enabled: false
