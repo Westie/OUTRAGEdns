@@ -49,7 +49,7 @@ use \WhoopsSilex\WhoopsServiceProvider;
 
 # let's mess about with silex now
 $app = new Application();
-$app["debug"] = true;
+$app["debug"] = false;
 
 # debugging
 if(!empty($app["debug"]))
