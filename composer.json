@@ -11,7 +11,7 @@
 		"outragelib/delegator": "^1.0",
 		"outragelib/objectlist": "^1.0",
 		"outragelib/validate": "^1.0",
-		"pear/net_dns2": "dev-master",
+		"pear/net_dns2": "^v1.4",
 		"silex/silex": "v2.2.4",
 		"symfony/cache": "^4.2",
 		"symfony/twig-bridge": "^4.0",

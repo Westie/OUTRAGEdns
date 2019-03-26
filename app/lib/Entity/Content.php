@@ -172,14 +172,13 @@ class Content extends ObjectList
 		if(!$this->id)
 			return false;
 		
-		$post = array
-		(
+		$post = [
 			"content_type" => get_class($this),
 			"content_id" => $this->id,
 			"action" => $action,
 			"state" => serialize($state),
 			"the_date" => time(),
-		);
+		];
 		
 		$insert = $this->db->insert();
 		$insert->into("logs");
