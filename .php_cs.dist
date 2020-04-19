@@ -1,0 +1,37 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create();
+$finder->path('app/src/');
+$finder->in(__DIR__);
+
+$config = PhpCsFixer\Config::create();
+$config->setRules([
+    '@PSR2' => true,
+    '@PhpCsFixer' => true,
+    'phpdoc_summary' => true,
+    'hash_to_slash_comment' => false,
+    'no_spaces_around_offset' => false,
+    'trim_array_spaces' => false,
+    'yoda_style' => false,
+    'blank_line_before_statement' => false,
+    'multiline_whitespace_before_semicolons' => false,
+    'single_line_comment_style' => [
+        'comment_types' => [
+            'hash',
+        ],
+    ],
+    'global_namespace_import' => [
+        'import_classes' => true,
+        'import_constants' => true,
+        'import_functions' => true,
+    ],
+    'align_multiline_comment' => [
+        'comment_type' => 'all_multiline',
+    ],
+    'array_syntax' => [
+        'syntax' => 'short',
+    ],
+]);
+$config->setFinder($finder);
+
+return $config;

@@ -1,8 +1,0 @@
-entities: 
-    zonetemplaterecord: 
-        actions: 
-            griditem: 
-                id: false
-        namespace: OUTRAGEdns.ZoneTemplateRecord
-        table: zone_templ_records
-        type: zonetemplaterecord

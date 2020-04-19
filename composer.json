@@ -1,35 +1,26 @@
 {
-	"autoload": {
-		"psr-4": {
-			"OUTRAGEdns\\":"app/lib"
-		}
-	},
-	"require": {
-		"filp/whoops": "^2.2",
-		"leth/ip-address": "dev-master",
-		"ltd-beget/dns-zone-tokenizer": "dev-master",
-		"outragelib/delegator": "^1.0",
-		"outragelib/objectlist": "^1.0",
-		"outragelib/validate": "^1.0",
-		"pear/net_dns2": "^v1.4",
-		"silex/silex": "v2.2.4",
-		"symfony/cache": "^4.2",
-		"symfony/twig-bridge": "^4.0",
-		"symfony/yaml": "^4.1",
-		"texthtml/whoops-silex": "^1.0",
-		"twig/extensions": "*",
-		"twig/twig": "^2.4",
-		"zendframework/zend-db": "^2.8",
-		"symfony/security": "^4.2"
-	},
-	"repositories": [
-		{
-			"type": "git",
-			"url": "https://github.com/Westie/dns-zone-tokenizer.git"
-		},
-		{
-			"type": "git",
-			"url": "https://github.com/Westie/Silex.git"
-		}
-	]
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "bryanjhv/slim-session": "^4.0",
+        "jane-php/open-api-runtime": "^6.0",
+        "league/container": "^3.3",
+        "slim/psr7": "^1.0",
+        "slim/slim": "^4.5",
+        "slim/twig-view": "^3.1",
+        "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "jane-php/open-api-3": "^6.0",
+        "symfony/var-dumper": "^5.0",
+        "zeuxisoo/slim-whoops": "^0.7.2"
+    }
 }
