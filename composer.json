@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "guzzlehttp/psr7": "^1.6",
         "http-interop/http-factory-guzzle": "^1.0",
-        "jane-php/open-api-3": "^6.0",
+        "jane-php/open-api-2": "^6.0",
         "league/container": "^3.3",
         "php-http/guzzle6-adapter": "^2.0",
         "slim/psr7": "^1.0",

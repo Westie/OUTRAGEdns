@@ -51,15 +51,15 @@ class GetTSIGKey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
      *
      * @return null|\App\PowerDns\Api\Model\TSIGKey
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status) {
             return $serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\TSIGKey', 'json');
         }
-        if (404 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (404 === $status) {
             throw new \App\PowerDns\Api\Exception\GetTSIGKeyNotFoundException($serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Error', 'json'));
         }
-        if (500 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (500 === $status) {
             throw new \App\PowerDns\Api\Exception\GetTSIGKeyInternalServerErrorException($serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Error', 'json'));
         }
     }

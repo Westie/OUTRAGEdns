@@ -66,9 +66,9 @@ class SearchData extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
      *
      * @return null|\App\PowerDns\Api\Model\SearchResult[]
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status) {
             return $serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\SearchResult[]', 'json');
         }
     }

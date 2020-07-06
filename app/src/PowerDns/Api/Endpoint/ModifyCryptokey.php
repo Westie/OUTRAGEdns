@@ -10,15 +10,16 @@ class ModifyCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
     protected $cryptokey_id;
 
     /**
-     * @param string $serverId    The id of the server to retrieve
-     * @param string $cryptokeyId Cryptokey to manipulate
+     * @param string                            $serverId    The id of the server to retrieve
+     * @param string                            $cryptokeyId Cryptokey to manipulate
+     * @param \App\PowerDns\Api\Model\Cryptokey $cryptokey   the Cryptokey
      */
-    public function __construct(string $serverId, string $zoneId, string $cryptokeyId, \App\PowerDns\Api\Model\Cryptokey $requestBody)
+    public function __construct(string $serverId, string $zoneId, string $cryptokeyId, \App\PowerDns\Api\Model\Cryptokey $cryptokey)
     {
         $this->server_id = $serverId;
         $this->zone_id = $zoneId;
         $this->cryptokey_id = $cryptokeyId;
-        $this->body = $requestBody;
+        $this->body = $cryptokey;
     }
 
     public function getMethod(): string
@@ -33,10 +34,12 @@ class ModifyCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        if ($this->body instanceof \App\PowerDns\Api\Model\Cryptokey) {
-            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
-        }
-        return [[], null];
+        return $this->getSerializedBody($serializer);
+    }
+
+    public function getExtraHeaders(): array
+    {
+        return ['Accept' => ['application/json']];
     }
 
     public function getAuthenticationScopes(): array
@@ -49,7 +52,7 @@ class ModifyCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
      *
      * @throws \App\PowerDns\Api\Exception\ModifyCryptokeyUnprocessableEntityException
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
         if (204 === $status) {
             return null;

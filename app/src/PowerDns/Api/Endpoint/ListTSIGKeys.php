@@ -47,12 +47,12 @@ class ListTSIGKeys extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \
      *
      * @return null|\App\PowerDns\Api\Model\TSIGKey[]
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status) {
             return $serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\TSIGKey[]', 'json');
         }
-        if (500 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (500 === $status) {
             throw new \App\PowerDns\Api\Exception\ListTSIGKeysInternalServerErrorException($serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Error', 'json'));
         }
     }

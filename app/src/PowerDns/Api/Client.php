@@ -45,7 +45,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      * @param string $serverId        The id of the server to retrieve
      * @param array  $queryParameters {
      *
-     *     @var string $zone when set to the name of a zone, only this zone is returned
+     *     @var string $zone When set to the name of a zone, only this zone is returned.
      *     @var bool $dnssec “true” (default) or “false”, whether to include the “dnssec” and ”edited_serial” fields in the Zone objects. Setting this to ”false” will make the query a lot faster.
      * }
      *
@@ -60,7 +60,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
 
     /**
      * @param string                       $serverId        The id of the server to retrieve
-     * @param \App\PowerDns\Api\Model\Zone $requestBody
+     * @param \App\PowerDns\Api\Model\Zone $zoneStruct      The zone struct to patch with
      * @param array                        $queryParameters {
      *
      *     @var bool $rrsets “true” (default) or “false”, whether to include the “rrsets” in the response Zone object.
@@ -70,9 +70,9 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      *
      * @return null|\App\PowerDns\Api\Model\Zone|\Psr\Http\Message\ResponseInterface
      */
-    public function createZone(string $serverId, Model\Zone $requestBody, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
+    public function createZone(string $serverId, Model\Zone $zoneStruct, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateZone($serverId, $requestBody, $queryParameters), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateZone($serverId, $zoneStruct, $queryParameters), $fetch);
     }
 
     /**
@@ -100,29 +100,29 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
     }
 
     /**
-     * @param string                       $serverId    The id of the server to retrieve
-     * @param \App\PowerDns\Api\Model\Zone $requestBody
-     * @param string                       $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string                       $serverId   The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Zone $zoneStruct The zone struct to patch with
+     * @param string                       $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return null|\Psr\Http\Message\ResponseInterface
      */
-    public function patchZone(string $serverId, string $zoneId, Model\Zone $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function patchZone(string $serverId, string $zoneId, Model\Zone $zoneStruct, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\PatchZone($serverId, $zoneId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\PatchZone($serverId, $zoneId, $zoneStruct), $fetch);
     }
 
     /**
      * Allowed fields in client body: all except id, url and name. Returns 204 No Content on success.
      *
-     * @param string                       $serverId    The id of the server to retrieve
-     * @param \App\PowerDns\Api\Model\Zone $requestBody
-     * @param string                       $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string                       $serverId   The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Zone $zoneStruct The zone struct to patch with
+     * @param string                       $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return null|\Psr\Http\Message\ResponseInterface
      */
-    public function putZone(string $serverId, string $zoneId, Model\Zone $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function putZone(string $serverId, string $zoneId, Model\Zone $zoneStruct, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\PutZone($serverId, $zoneId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\PutZone($serverId, $zoneId, $zoneStruct), $fetch);
     }
 
     /**
@@ -210,7 +210,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      * @param string $serverId        The id of the server to retrieve
      * @param array  $queryParameters {
      *
-     *     @var string $statistic when set to the name of a specific statistic, only this value is returned
+     *     @var string $statistic When set to the name of a specific statistic, only this value is returned.
      *     @var bool $includerings “true” (default) or “false”, whether to include the Ring items, which can contain thousands of log messages or queried domains. Setting this to ”false” may make the response a lot smaller.
      * }
      *
@@ -260,15 +260,15 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
     /**
      * Creates a set of metadata entries of given kind for the zone. Existing metadata entries for the zone with the same kind are not overwritten.
      *
-     * @param string                           $serverId    The id of the server to retrieve
-     * @param \App\PowerDns\Api\Model\Metadata $requestBody
-     * @param string                           $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string                           $serverId The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Metadata $metadata Metadata object with list of values to create
+     * @param string                           $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return null|\Psr\Http\Message\ResponseInterface
      */
-    public function createMetadata(string $serverId, string $zoneId, Model\Metadata $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function createMetadata(string $serverId, string $zoneId, Model\Metadata $metadata, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateMetadata($serverId, $zoneId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateMetadata($serverId, $zoneId, $metadata), $fetch);
     }
 
     /**
@@ -302,14 +302,14 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      *
      * @param string                           $serverId     The id of the server to retrieve
      * @param string                           $metadataKind The kind of metadata
-     * @param \App\PowerDns\Api\Model\Metadata $requestBody
+     * @param \App\PowerDns\Api\Model\Metadata $metadata     metadata to add/create
      * @param string                           $fetch        Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return null|\App\PowerDns\Api\Model\Metadata|\Psr\Http\Message\ResponseInterface
      */
-    public function modifyMetadata(string $serverId, string $zoneId, string $metadataKind, Model\Metadata $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function modifyMetadata(string $serverId, string $zoneId, string $metadataKind, Model\Metadata $metadata, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\ModifyMetadata($serverId, $zoneId, $metadataKind, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\ModifyMetadata($serverId, $zoneId, $metadataKind, $metadata), $fetch);
     }
 
     /**
@@ -327,15 +327,15 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
     /**
      * This method adds a new key to a zone. The key can either be generated or imported by supplying the content parameter. if content, bits and algo are null, a key will be generated based on the default-ksk-algorithm and default-ksk-size settings for a KSK and the default-zsk-algorithm and default-zsk-size options for a ZSK.
      *
-     * @param string                            $serverId    The id of the server to retrieve
-     * @param \App\PowerDns\Api\Model\Cryptokey $requestBody
-     * @param string                            $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string                            $serverId  The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Cryptokey $cryptokey Add a Cryptokey
+     * @param string                            $fetch     Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return null|\App\PowerDns\Api\Model\Cryptokey|\Psr\Http\Message\ResponseInterface
      */
-    public function createCryptokey(string $serverId, string $zoneId, Model\Cryptokey $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function createCryptokey(string $serverId, string $zoneId, Model\Cryptokey $cryptokey, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateCryptokey($serverId, $zoneId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateCryptokey($serverId, $zoneId, $cryptokey), $fetch);
     }
 
     /**
@@ -369,16 +369,16 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
     /**
      * @param string                            $serverId    The id of the server to retrieve
      * @param string                            $cryptokeyId Cryptokey to manipulate
-     * @param \App\PowerDns\Api\Model\Cryptokey $requestBody
+     * @param \App\PowerDns\Api\Model\Cryptokey $cryptokey   the Cryptokey
      * @param string                            $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @throws \App\PowerDns\Api\Exception\ModifyCryptokeyUnprocessableEntityException
      *
      * @return null|\Psr\Http\Message\ResponseInterface
      */
-    public function modifyCryptokey(string $serverId, string $zoneId, string $cryptokeyId, Model\Cryptokey $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function modifyCryptokey(string $serverId, string $zoneId, string $cryptokeyId, Model\Cryptokey $cryptokey, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\ModifyCryptokey($serverId, $zoneId, $cryptokeyId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\ModifyCryptokey($serverId, $zoneId, $cryptokeyId, $cryptokey), $fetch);
     }
 
     /**
@@ -397,9 +397,9 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
     /**
      * This methods add a new TSIGKey. The actual key can be generated by the server or be provided by the client
      *
-     * @param string                          $serverId    The id of the server
-     * @param \App\PowerDns\Api\Model\TSIGKey $requestBody
-     * @param string                          $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string                          $serverId The id of the server
+     * @param \App\PowerDns\Api\Model\TSIGKey $tsigkey  The TSIGKey to add
+     * @param string                          $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @throws \App\PowerDns\Api\Exception\CreateTSIGKeyConflictException
      * @throws \App\PowerDns\Api\Exception\CreateTSIGKeyUnprocessableEntityException
@@ -407,9 +407,9 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      *
      * @return null|\App\PowerDns\Api\Model\TSIGKey|\Psr\Http\Message\ResponseInterface
      */
-    public function createTSIGKey(string $serverId, Model\TSIGKey $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function createTSIGKey(string $serverId, Model\TSIGKey $tsigkey, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateTSIGKey($serverId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\CreateTSIGKey($serverId, $tsigkey), $fetch);
     }
 
     /**
@@ -448,19 +448,19 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      * Changing the Algorithm
      * Changing the Key
      *
-     * @param string                          $serverId    The id of the server to retrieve the key from
-     * @param string                          $tsigkeyId   The id of the TSIGkey. Should match the "id" field in the TSIGKey object
-     * @param \App\PowerDns\Api\Model\TSIGKey $requestBody
-     * @param string                          $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string                          $serverId  The id of the server to retrieve the key from
+     * @param string                          $tsigkeyId The id of the TSIGkey. Should match the "id" field in the TSIGKey object
+     * @param \App\PowerDns\Api\Model\TSIGKey $tsigkey   A (possibly stripped down) TSIGKey object with the new values
+     * @param string                          $fetch     Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @throws \App\PowerDns\Api\Exception\PutTSIGKeyNotFoundException
      * @throws \App\PowerDns\Api\Exception\PutTSIGKeyInternalServerErrorException
      *
      * @return null|\App\PowerDns\Api\Model\TSIGKey|\Psr\Http\Message\ResponseInterface
      */
-    public function putTSIGKey(string $serverId, string $tsigkeyId, Model\TSIGKey $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function putTSIGKey(string $serverId, string $tsigkeyId, Model\TSIGKey $tsigkey, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\PutTSIGKey($serverId, $tsigkeyId, $requestBody), $fetch);
+        return $this->executePsr7Endpoint(new \App\PowerDns\Api\Endpoint\PutTSIGKey($serverId, $tsigkeyId, $tsigkey), $fetch);
     }
 
     public static function create($httpClient = null, array $additionalPlugins = [])
@@ -468,7 +468,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
         if (null === $httpClient) {
             $httpClient = \Http\Discovery\Psr18ClientDiscovery::find();
             $plugins = [];
-            $uri = \Http\Discovery\Psr17FactoryDiscovery::findUrlFactory()->createUri('http://localhost/api/v1');
+            $uri = \Http\Discovery\Psr17FactoryDiscovery::findUrlFactory()->createUri('http://localhost:8081/api/v1');
             $plugins[] = new \Http\Client\Common\Plugin\AddHostPlugin($uri);
             $plugins[] = new \Http\Client\Common\Plugin\AddPathPlugin($uri);
             if (count($additionalPlugins) > 0) {

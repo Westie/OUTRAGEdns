@@ -33,6 +33,11 @@ class DeleteZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
         return [[], null];
     }
 
+    public function getExtraHeaders(): array
+    {
+        return ['Accept' => ['application/json']];
+    }
+
     public function getAuthenticationScopes(): array
     {
         return ['APIKeyHeader'];
@@ -41,7 +46,7 @@ class DeleteZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
     /**
      * {@inheritdoc}
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
         if (204 === $status) {
             return null;

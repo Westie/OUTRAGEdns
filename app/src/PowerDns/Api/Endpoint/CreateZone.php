@@ -8,16 +8,17 @@ class CreateZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
     protected $server_id;
 
     /**
-     * @param string $serverId        The id of the server to retrieve
-     * @param array  $queryParameters {
+     * @param string                       $serverId        The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Zone $zoneStruct      The zone struct to patch with
+     * @param array                        $queryParameters {
      *
      *     @var bool $rrsets “true” (default) or “false”, whether to include the “rrsets” in the response Zone object.
      * }
      */
-    public function __construct(string $serverId, \App\PowerDns\Api\Model\Zone $requestBody, array $queryParameters = [])
+    public function __construct(string $serverId, \App\PowerDns\Api\Model\Zone $zoneStruct, array $queryParameters = [])
     {
         $this->server_id = $serverId;
-        $this->body = $requestBody;
+        $this->body = $zoneStruct;
         $this->queryParameters = $queryParameters;
     }
 
@@ -33,10 +34,7 @@ class CreateZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        if ($this->body instanceof \App\PowerDns\Api\Model\Zone) {
-            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
-        }
-        return [[], null];
+        return $this->getSerializedBody($serializer);
     }
 
     public function getExtraHeaders(): array
@@ -64,9 +62,9 @@ class CreateZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
      *
      * @return null|\App\PowerDns\Api\Model\Zone
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (201 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (201 === $status) {
             return $serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Zone', 'json');
         }
     }

@@ -36,6 +36,11 @@ class DeleteCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
         return [[], null];
     }
 
+    public function getExtraHeaders(): array
+    {
+        return ['Accept' => ['application/json']];
+    }
+
     public function getAuthenticationScopes(): array
     {
         return ['APIKeyHeader'];
@@ -46,7 +51,7 @@ class DeleteCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
      *
      * @throws \App\PowerDns\Api\Exception\DeleteCryptokeyUnprocessableEntityException
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
         if (204 === $status) {
             return null;

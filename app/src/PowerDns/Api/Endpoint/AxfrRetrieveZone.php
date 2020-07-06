@@ -35,6 +35,11 @@ class AxfrRetrieveZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
         return [[], null];
     }
 
+    public function getExtraHeaders(): array
+    {
+        return ['Accept' => ['application/json']];
+    }
+
     public function getAuthenticationScopes(): array
     {
         return ['APIKeyHeader'];
@@ -43,7 +48,7 @@ class AxfrRetrieveZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
     /**
      * {@inheritdoc}
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
         if (200 === $status) {
             return null;

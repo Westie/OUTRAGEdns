@@ -12,15 +12,16 @@ class ModifyMetadata extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
     /**
      * Creates a set of metadata entries of given kind for the zone. Existing metadata entries for the zone with the same kind are removed.
      *
-     * @param string $serverId     The id of the server to retrieve
-     * @param string $metadataKind The kind of metadata
+     * @param string                           $serverId     The id of the server to retrieve
+     * @param string                           $metadataKind The kind of metadata
+     * @param \App\PowerDns\Api\Model\Metadata $metadata     metadata to add/create
      */
-    public function __construct(string $serverId, string $zoneId, string $metadataKind, \App\PowerDns\Api\Model\Metadata $requestBody)
+    public function __construct(string $serverId, string $zoneId, string $metadataKind, \App\PowerDns\Api\Model\Metadata $metadata)
     {
         $this->server_id = $serverId;
         $this->zone_id = $zoneId;
         $this->metadata_kind = $metadataKind;
-        $this->body = $requestBody;
+        $this->body = $metadata;
     }
 
     public function getMethod(): string
@@ -35,10 +36,7 @@ class ModifyMetadata extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        if ($this->body instanceof \App\PowerDns\Api\Model\Metadata) {
-            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
-        }
-        return [[], null];
+        return $this->getSerializedBody($serializer);
     }
 
     public function getExtraHeaders(): array
@@ -56,9 +54,9 @@ class ModifyMetadata extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
      *
      * @return null|\App\PowerDns\Api\Model\Metadata
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status) {
             return $serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Metadata', 'json');
         }
     }

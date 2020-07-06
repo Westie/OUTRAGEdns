@@ -49,15 +49,15 @@ class DeleteTSIGKey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements 
      * @throws \App\PowerDns\Api\Exception\DeleteTSIGKeyNotFoundException
      * @throws \App\PowerDns\Api\Exception\DeleteTSIGKeyInternalServerErrorException
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
         if (204 === $status) {
             return null;
         }
-        if (404 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (404 === $status) {
             throw new \App\PowerDns\Api\Exception\DeleteTSIGKeyNotFoundException($serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Error', 'json'));
         }
-        if (500 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (500 === $status) {
             throw new \App\PowerDns\Api\Exception\DeleteTSIGKeyInternalServerErrorException($serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Error', 'json'));
         }
     }

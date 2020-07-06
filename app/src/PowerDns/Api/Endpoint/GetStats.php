@@ -13,7 +13,7 @@ class GetStats extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane
      * @param string $serverId        The id of the server to retrieve
      * @param array  $queryParameters {
      *
-     *     @var string $statistic when set to the name of a specific statistic, only this value is returned
+     *     @var string $statistic When set to the name of a specific statistic, only this value is returned.
      *     @var bool $includerings “true” (default) or “false”, whether to include the Ring items, which can contain thousands of log messages or queried domains. Setting this to ”false” may make the response a lot smaller.
      * }
      */
@@ -64,9 +64,9 @@ class GetStats extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane
      *
      * @throws \App\PowerDns\Api\Exception\GetStatsUnprocessableEntityException
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status) {
             return json_decode($body);
         }
         if (422 === $status) {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02c6d167e0b32e650a3143a4f77d8847",
+    "content-hash": "6247bbb115c1974e6f47521a60180283",
     "packages": [
         {
             "name": "bryanjhv/slim-session",
@@ -681,17 +681,17 @@
             "time": "2020-06-13T08:07:49+00:00"
         },
         {
-            "name": "jane-php/open-api-3",
+            "name": "jane-php/open-api-2",
             "version": "v6.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/janephp/open-api-3.git",
-                "reference": "916e040004bbfae2afd01e9b2a34fc677440ab25"
+                "url": "https://github.com/janephp/open-api-2.git",
+                "reference": "81c297d83611724dbb6fca12bfed7be69233d218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/janephp/open-api-3/zipball/916e040004bbfae2afd01e9b2a34fc677440ab25",
-                "reference": "916e040004bbfae2afd01e9b2a34fc677440ab25",
+                "url": "https://api.github.com/repos/janephp/open-api-2/zipball/81c297d83611724dbb6fca12bfed7be69233d218",
+                "reference": "81c297d83611724dbb6fca12bfed7be69233d218",
                 "shasum": ""
             },
             "require": {
@@ -721,7 +721,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Jane\\OpenApi3\\": ""
+                    "Jane\\OpenApi2\\": ""
                 },
                 "exclude-from-classmap": [
                     "/Tests/"
@@ -741,7 +741,7 @@
                     "email": "baptiste.leduc@gmail.com"
                 }
             ],
-            "description": "Generate a PHP Client API (PSR7/PSR18 compatible) given a OpenApi 3.x specification",
+            "description": "Generate a PHP Client API (PSR7/PSR18 compatible) given a OpenApi 2.x (Swagger) specification",
             "keywords": [
                 "jane",
                 "openapi",

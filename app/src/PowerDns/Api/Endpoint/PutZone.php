@@ -11,13 +11,14 @@ class PutZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\
     /**
      * Allowed fields in client body: all except id, url and name. Returns 204 No Content on success.
      *
-     * @param string $serverId The id of the server to retrieve
+     * @param string                       $serverId   The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Zone $zoneStruct The zone struct to patch with
      */
-    public function __construct(string $serverId, string $zoneId, \App\PowerDns\Api\Model\Zone $requestBody)
+    public function __construct(string $serverId, string $zoneId, \App\PowerDns\Api\Model\Zone $zoneStruct)
     {
         $this->server_id = $serverId;
         $this->zone_id = $zoneId;
-        $this->body = $requestBody;
+        $this->body = $zoneStruct;
     }
 
     public function getMethod(): string
@@ -32,10 +33,12 @@ class PutZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        if ($this->body instanceof \App\PowerDns\Api\Model\Zone) {
-            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
-        }
-        return [[], null];
+        return $this->getSerializedBody($serializer);
+    }
+
+    public function getExtraHeaders(): array
+    {
+        return ['Accept' => ['application/json']];
     }
 
     public function getAuthenticationScopes(): array
@@ -46,7 +49,7 @@ class PutZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane\
     /**
      * {@inheritdoc}
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
         if (204 === $status) {
             return null;

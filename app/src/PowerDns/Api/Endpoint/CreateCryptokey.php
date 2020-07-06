@@ -11,13 +11,14 @@ class CreateCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
     /**
      * This method adds a new key to a zone. The key can either be generated or imported by supplying the content parameter. if content, bits and algo are null, a key will be generated based on the default-ksk-algorithm and default-ksk-size settings for a KSK and the default-zsk-algorithm and default-zsk-size options for a ZSK.
      *
-     * @param string $serverId The id of the server to retrieve
+     * @param string                            $serverId  The id of the server to retrieve
+     * @param \App\PowerDns\Api\Model\Cryptokey $cryptokey Add a Cryptokey
      */
-    public function __construct(string $serverId, string $zoneId, \App\PowerDns\Api\Model\Cryptokey $requestBody)
+    public function __construct(string $serverId, string $zoneId, \App\PowerDns\Api\Model\Cryptokey $cryptokey)
     {
         $this->server_id = $serverId;
         $this->zone_id = $zoneId;
-        $this->body = $requestBody;
+        $this->body = $cryptokey;
     }
 
     public function getMethod(): string
@@ -32,10 +33,7 @@ class CreateCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        if ($this->body instanceof \App\PowerDns\Api\Model\Cryptokey) {
-            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
-        }
-        return [[], null];
+        return $this->getSerializedBody($serializer);
     }
 
     public function getExtraHeaders(): array
@@ -53,9 +51,9 @@ class CreateCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
      *
      * @return null|\App\PowerDns\Api\Model\Cryptokey
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (201 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (201 === $status) {
             return $serializer->deserialize($body, 'App\\PowerDns\\Api\\Model\\Cryptokey', 'json');
         }
     }

@@ -46,9 +46,9 @@ class AxfrExportZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
     /**
      * {@inheritdoc}
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType)
     {
-        if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
+        if (200 === $status) {
             return json_decode($body);
         }
     }
