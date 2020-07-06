@@ -45,7 +45,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      * @param string $serverId        The id of the server to retrieve
      * @param array  $queryParameters {
      *
-     *     @var string $zone When set to the name of a zone, only this zone is returned.
+     *     @var string $zone when set to the name of a zone, only this zone is returned
      *     @var bool $dnssec “true” (default) or “false”, whether to include the “dnssec” and ”edited_serial” fields in the Zone objects. Setting this to ”false” will make the query a lot faster.
      * }
      *
@@ -210,7 +210,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Psr18Client
      * @param string $serverId        The id of the server to retrieve
      * @param array  $queryParameters {
      *
-     *     @var string $statistic When set to the name of a specific statistic, only this value is returned.
+     *     @var string $statistic when set to the name of a specific statistic, only this value is returned
      *     @var bool $includerings “true” (default) or “false”, whether to include the Ring items, which can contain thousands of log messages or queried domains. Setting this to ”false” may make the response a lot smaller.
      * }
      *
