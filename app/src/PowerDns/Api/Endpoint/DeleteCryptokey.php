@@ -36,6 +36,11 @@ class DeleteCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
         return [[], null];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     /**
      * {@inheritdoc}
      *

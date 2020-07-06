@@ -13,7 +13,7 @@ class SearchResultComment
      */
     protected $name;
     /**
-     * set to "comment".
+     * set to "comment"
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class SearchResultComment
     }
 
     /**
-     * set to "comment".
+     * set to "comment"
      */
     public function getObjectType(): string
     {
@@ -58,7 +58,7 @@ class SearchResultComment
     }
 
     /**
-     * set to "comment".
+     * set to "comment"
      */
     public function setObjectType(string $objectType): self
     {

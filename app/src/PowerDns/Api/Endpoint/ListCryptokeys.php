@@ -38,6 +38,11 @@ class ListCryptokeys extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     /**
      * {@inheritdoc}
      *

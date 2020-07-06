@@ -4,6 +4,7 @@ namespace App\PowerDns\Api\Normalizer;
 
 use function array_key_exists;
 use Jane\JsonSchemaRuntime\Normalizer\CheckArray;
+use Jane\JsonSchemaRuntime\Reference;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -29,6 +30,12 @@ class SearchResultCommentNormalizer implements DenormalizerInterface, Normalizer
 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
+        }
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        }
         $object = new \App\PowerDns\Api\Model\SearchResultComment();
         if (array_key_exists('content', $data)) {
             $object->setContent($data['content']);

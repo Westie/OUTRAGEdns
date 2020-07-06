@@ -12,7 +12,7 @@ class PutTSIGKey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
      * The TSIGKey at tsigkey_id can be changed in multiple ways:
      * Changing the Name, this will remove the key with tsigkey_id after adding.
      * Changing the Algorithm
-     * Changing the Key.
+     * Changing the Key
      *
      * @param string $serverId  The id of the server to retrieve the key from
      * @param string $tsigkeyId The id of the TSIGkey. Should match the "id" field in the TSIGKey object
@@ -45,6 +45,11 @@ class PutTSIGKey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
     public function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
+    }
+
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
     }
 
     /**

@@ -5,13 +5,13 @@ namespace App\PowerDns\Api\Model;
 class Cryptokey
 {
     /**
-     * set to "Cryptokey".
+     * set to "Cryptokey"
      *
      * @var string
      */
     protected $type;
     /**
-     * The internal identifier, read only.
+     * The internal identifier, read only
      *
      * @var int
      */
@@ -21,50 +21,50 @@ class Cryptokey
      */
     protected $keytype;
     /**
-     * Whether or not the key is in active use.
+     * Whether or not the key is in active use
      *
      * @var bool
      */
     protected $active;
     /**
-     * Whether or not the DNSKEY record is published in the zone.
+     * Whether or not the DNSKEY record is published in the zone
      *
      * @var bool
      */
     protected $published;
     /**
-     * The DNSKEY record for this key.
+     * The DNSKEY record for this key
      *
      * @var string
      */
     protected $dnskey;
     /**
-     * An array of DS records for this key.
+     * An array of DS records for this key
      *
      * @var string[]
      */
     protected $ds;
     /**
-     * The private key in ISC format.
+     * The private key in ISC format
      *
      * @var string
      */
     protected $privatekey;
     /**
-     * The name of the algorithm of the key, should be a mnemonic.
+     * The name of the algorithm of the key, should be a mnemonic
      *
      * @var string
      */
     protected $algorithm;
     /**
-     * The size of the key.
+     * The size of the key
      *
      * @var int
      */
     protected $bits;
 
     /**
-     * set to "Cryptokey".
+     * set to "Cryptokey"
      */
     public function getType(): string
     {
@@ -72,7 +72,7 @@ class Cryptokey
     }
 
     /**
-     * set to "Cryptokey".
+     * set to "Cryptokey"
      */
     public function setType(string $type): self
     {
@@ -81,7 +81,7 @@ class Cryptokey
     }
 
     /**
-     * The internal identifier, read only.
+     * The internal identifier, read only
      */
     public function getId(): int
     {
@@ -89,7 +89,7 @@ class Cryptokey
     }
 
     /**
-     * The internal identifier, read only.
+     * The internal identifier, read only
      */
     public function setId(int $id): self
     {
@@ -109,7 +109,7 @@ class Cryptokey
     }
 
     /**
-     * Whether or not the key is in active use.
+     * Whether or not the key is in active use
      */
     public function getActive(): bool
     {
@@ -117,7 +117,7 @@ class Cryptokey
     }
 
     /**
-     * Whether or not the key is in active use.
+     * Whether or not the key is in active use
      */
     public function setActive(bool $active): self
     {
@@ -126,7 +126,7 @@ class Cryptokey
     }
 
     /**
-     * Whether or not the DNSKEY record is published in the zone.
+     * Whether or not the DNSKEY record is published in the zone
      */
     public function getPublished(): bool
     {
@@ -134,7 +134,7 @@ class Cryptokey
     }
 
     /**
-     * Whether or not the DNSKEY record is published in the zone.
+     * Whether or not the DNSKEY record is published in the zone
      */
     public function setPublished(bool $published): self
     {
@@ -143,7 +143,7 @@ class Cryptokey
     }
 
     /**
-     * The DNSKEY record for this key.
+     * The DNSKEY record for this key
      */
     public function getDnskey(): string
     {
@@ -151,7 +151,7 @@ class Cryptokey
     }
 
     /**
-     * The DNSKEY record for this key.
+     * The DNSKEY record for this key
      */
     public function setDnskey(string $dnskey): self
     {
@@ -160,7 +160,7 @@ class Cryptokey
     }
 
     /**
-     * An array of DS records for this key.
+     * An array of DS records for this key
      *
      * @return string[]
      */
@@ -170,7 +170,7 @@ class Cryptokey
     }
 
     /**
-     * An array of DS records for this key.
+     * An array of DS records for this key
      *
      * @param string[] $ds
      */
@@ -181,7 +181,7 @@ class Cryptokey
     }
 
     /**
-     * The private key in ISC format.
+     * The private key in ISC format
      */
     public function getPrivatekey(): string
     {
@@ -189,7 +189,7 @@ class Cryptokey
     }
 
     /**
-     * The private key in ISC format.
+     * The private key in ISC format
      */
     public function setPrivatekey(string $privatekey): self
     {
@@ -198,7 +198,7 @@ class Cryptokey
     }
 
     /**
-     * The name of the algorithm of the key, should be a mnemonic.
+     * The name of the algorithm of the key, should be a mnemonic
      */
     public function getAlgorithm(): string
     {
@@ -206,7 +206,7 @@ class Cryptokey
     }
 
     /**
-     * The name of the algorithm of the key, should be a mnemonic.
+     * The name of the algorithm of the key, should be a mnemonic
      */
     public function setAlgorithm(string $algorithm): self
     {
@@ -215,7 +215,7 @@ class Cryptokey
     }
 
     /**
-     * The size of the key.
+     * The size of the key
      */
     public function getBits(): int
     {
@@ -223,7 +223,7 @@ class Cryptokey
     }
 
     /**
-     * The size of the key.
+     * The size of the key
      */
     public function setBits(int $bits): self
     {

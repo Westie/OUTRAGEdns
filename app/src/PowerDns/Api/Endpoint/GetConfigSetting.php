@@ -9,7 +9,7 @@ class GetConfigSetting extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
     protected $config_setting_name;
 
     /**
-     * NOT IMPLEMENTED.
+     * NOT IMPLEMENTED
      *
      * @param string $serverId          The id of the server to retrieve
      * @param string $configSettingName The name of the setting to retrieve
@@ -38,6 +38,11 @@ class GetConfigSetting extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
     public function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
+    }
+
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
     }
 
     /**

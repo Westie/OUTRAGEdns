@@ -1,71 +1,80 @@
-{% if index is not defined %}
-	{% set index = null %}
+{% if suffix is not empty %}
+    {% set prefix = record.name|slice(0, max(record.name|length - suffix|length - 1, 0)) %}
+{% else %}
+    {% set prefix = record.name %}
 {% endif %}
 
-<tr{% if class is defined %} class="{{ class|e }}"{% endif %}>
-	<td class="move-bar">
-	</td>
-	
-	<td class="with-suffix">
-		<input type="text" name="records[{% if index is not empty %}{{ index|e }}{% endif %}][name]" value="{{ content.prefix|e }}" />
-		<div class="suffix">.{{ suffix|default(content.parent.name)|e }}</div>
-	</td>
-	
-	<td>
-		{% if config.records.types is iterable %}
-			<select name="records[{% if index is not empty %}{{ index|e }}{% endif %}][type]">
-				{% if not content.type %}
-					<option value="">?</option>
-				{% endif %}
-				
-				{% for type in config.records.types %}
-					<option value="{{ type|e }}"{% if content.type == type %} selected="selected"{% endif %}>{{ type|e }}</option>
-				{% endfor %}
-			</select>
-		{% endif %}
-	</td>
-	
-	<td>
-		<input type="text" name="records[{% if index is not empty %}{{ index|e }}{% endif %}][content]" value="{{ content.content|e }}" />
-	</td>
-	
-	<td>
-		<input type="text" name="records[{% if index is not empty %}{{ index|e }}{% endif %}][prio]" value="{{ content.prio|e }}" />
-	</td>
-	
-	<td>
-		{% if config.records.ttl is iterable %}
-			<select name="records[{% if index is not empty %}{{ index|e }}{% endif %}][ttl]" class="editable-dropdown">
-				{% if not content.ttl %}
-					<option value="">?</option>
-				{% endif %}
-				
-				{% if content.ttl is not empty and content.ttl not in config.records.ttl|keys %}
-					<option value="{{ content.ttl|e }}" selected="selected">{{ content.ttl|e }} sec</option>
-				{% endif %}
-				
-				{% for ttl, title in config.records.ttl %}
-					<option value="{{ ttl|e }}"{% if content.ttl == ttl %} selected="selected"{% endif %}>{{ title|e }}</option>
-				{% endfor %}
-			</select>
-		{% else %}
-			<input type="text" name="records[{% if index is not empty %}{{ index|e }}{% endif %}][ttl]" value="{{ content.ttl|e }}" />
-		{% endif %}
-	</td>
-	
-	<td class="actions">
-		<ul>
-			<li class="clone">
-				<a href="#" class="tooltip" title="Clone">
-					<i class="fa fa-plus"></i>
-				</a>
-			</li>
-			
-			<li class="remove">
-				<a href="#" class="tooltip" title="Remove">
-					<i class="fa fa-trash-o"></i>
-				</a>
-			</li>
-		</ul>
-	</td>
-</tr>
+{% for data in record.records %}
+    <tr{% if class is defined %} class="{{ class|e }}"{% endif %}>
+        <td class="move-bar">
+        </td>
+
+        <td class="with-suffix">
+            <input type="text" name="records[][name]" value="{{ prefix|e }}" />
+
+            {% if suffix is not empty %}
+                <div class="suffix">.{{ suffix|e }}</div>
+            {% endif %}
+        </td>
+
+        <td>
+            {% if config.records.types is iterable %}
+                <select name="records[][type]">
+                    {% if not record.type %}
+                        <option value="">?</option>
+                    {% endif %}
+                    
+                    {% for type in config.records.types %}
+                        <option value="{{ type|e }}"{% if record.type == type %} selected="selected"{% endif %}>{{ type|e }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <input type="text" name="records[][type]" value="{{ record.type|e }}" />
+            {% endif %}
+        </td>
+
+        <td>
+            <input type="text" name="records[][content]" value="{{ data.content|e }}" />
+        </td>
+
+        <td>
+            <input type="text" name="records[][prio]" value="{{ data.prio|e }}" />
+        </td>
+
+        <td>
+            {% if config.records.ttl is iterable %}
+                <select name="records[][ttl]" class="editable-dropdown">
+                    {% if not record.ttl %}
+                        <option value="">?</option>
+                    {% endif %}
+                    
+                    {% if record.ttl is not empty and record.ttl not in config.records.ttl|keys %}
+                        <option value="{{ record.ttl|e }}" selected="selected">{{ record.ttl|e }} sec</option>
+                    {% endif %}
+                    
+                    {% for ttl, title in config.records.ttl %}
+                        <option value="{{ ttl|e }}"{% if record.ttl == ttl %} selected="selected"{% endif %}>{{ title|e }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <input type="text" name="records[][ttl]" value="{{ record.ttl|e }}" />
+            {% endif %}
+        </td>
+
+        <td class="actions">
+            <ul>
+                <li class="clone">
+                    <a href="#" class="tooltip" title="Clone">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </li>
+
+                <li class="remove">
+                    <a href="#" class="tooltip" title="Remove">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+{% endfor %}

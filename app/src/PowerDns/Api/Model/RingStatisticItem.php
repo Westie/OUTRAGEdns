@@ -5,32 +5,32 @@ namespace App\PowerDns\Api\Model;
 class RingStatisticItem
 {
     /**
-     * Item name.
+     * Item name
      *
      * @var string
      */
     protected $name;
     /**
-     * Set to "RingStatisticItem".
+     * Set to "RingStatisticItem"
      *
      * @var string
      */
     protected $type;
     /**
-     * Ring size.
+     * Ring size
      *
      * @var int
      */
     protected $size;
     /**
-     * Named values.
+     * Named values
      *
      * @var SimpleStatisticItem[]
      */
     protected $value;
 
     /**
-     * Item name.
+     * Item name
      */
     public function getName(): string
     {
@@ -38,7 +38,7 @@ class RingStatisticItem
     }
 
     /**
-     * Item name.
+     * Item name
      */
     public function setName(string $name): self
     {
@@ -47,7 +47,7 @@ class RingStatisticItem
     }
 
     /**
-     * Set to "RingStatisticItem".
+     * Set to "RingStatisticItem"
      */
     public function getType(): string
     {
@@ -55,7 +55,7 @@ class RingStatisticItem
     }
 
     /**
-     * Set to "RingStatisticItem".
+     * Set to "RingStatisticItem"
      */
     public function setType(string $type): self
     {
@@ -64,7 +64,7 @@ class RingStatisticItem
     }
 
     /**
-     * Ring size.
+     * Ring size
      */
     public function getSize(): int
     {
@@ -72,7 +72,7 @@ class RingStatisticItem
     }
 
     /**
-     * Ring size.
+     * Ring size
      */
     public function setSize(int $size): self
     {
@@ -81,7 +81,7 @@ class RingStatisticItem
     }
 
     /**
-     * Named values.
+     * Named values
      *
      * @return SimpleStatisticItem[]
      */
@@ -91,7 +91,7 @@ class RingStatisticItem
     }
 
     /**
-     * Named values.
+     * Named values
      *
      * @param SimpleStatisticItem[] $value
      */

@@ -5,26 +5,26 @@ namespace App\PowerDns\Api\Model;
 class StatisticItem
 {
     /**
-     * Item name.
+     * Item name
      *
      * @var string
      */
     protected $name;
     /**
-     * set to "StatisticItem".
+     * set to "StatisticItem"
      *
      * @var string
      */
     protected $type;
     /**
-     * Item value.
+     * Item value
      *
      * @var string
      */
     protected $value;
 
     /**
-     * Item name.
+     * Item name
      */
     public function getName(): string
     {
@@ -32,7 +32,7 @@ class StatisticItem
     }
 
     /**
-     * Item name.
+     * Item name
      */
     public function setName(string $name): self
     {
@@ -41,7 +41,7 @@ class StatisticItem
     }
 
     /**
-     * set to "StatisticItem".
+     * set to "StatisticItem"
      */
     public function getType(): string
     {
@@ -49,7 +49,7 @@ class StatisticItem
     }
 
     /**
-     * set to "StatisticItem".
+     * set to "StatisticItem"
      */
     public function setType(string $type): self
     {
@@ -58,7 +58,7 @@ class StatisticItem
     }
 
     /**
-     * Item value.
+     * Item value
      */
     public function getValue(): string
     {
@@ -66,7 +66,7 @@ class StatisticItem
     }
 
     /**
-     * Item value.
+     * Item value
      */
     public function setValue(string $value): self
     {

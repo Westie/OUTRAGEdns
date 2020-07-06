@@ -5,7 +5,7 @@ namespace App\PowerDns\Api\Model;
 class Metadata
 {
     /**
-     * Name of the metadata.
+     * Name of the metadata
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class Metadata
     protected $metadata;
 
     /**
-     * Name of the metadata.
+     * Name of the metadata
      */
     public function getKind(): string
     {
@@ -26,7 +26,7 @@ class Metadata
     }
 
     /**
-     * Name of the metadata.
+     * Name of the metadata
      */
     public function setKind(string $kind): self
     {

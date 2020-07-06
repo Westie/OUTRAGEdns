@@ -26,6 +26,11 @@ class ListServers extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \J
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     /**
      * {@inheritdoc}
      *

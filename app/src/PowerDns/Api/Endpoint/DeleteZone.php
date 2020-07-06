@@ -33,6 +33,11 @@ class DeleteZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Ja
         return [[], null];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     /**
      * {@inheritdoc}
      */

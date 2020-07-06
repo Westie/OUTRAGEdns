@@ -11,16 +11,19 @@
     },
     "require": {
         "bryanjhv/slim-session": "^4.0",
-        "jane-php/open-api-runtime": "^6.0",
+        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/psr7": "^1.6",
+        "http-interop/http-factory-guzzle": "^1.0",
+        "jane-php/open-api-3": "^6.0",
         "league/container": "^3.3",
+        "php-http/guzzle6-adapter": "^2.0",
         "slim/psr7": "^1.0",
         "slim/slim": "^4.5",
         "slim/twig-view": "^3.1",
-        "twig/twig": "^3.0"
-    },
-    "require-dev": {
-        "jane-php/open-api-3": "^6.0",
         "symfony/var-dumper": "^5.0",
+        "symfony/yaml": "^5.0",
+        "tightenco/collect": "^7.6",
+        "twig/twig": "^3.0",
         "zeuxisoo/slim-whoops": "^0.7.2"
     }
 }

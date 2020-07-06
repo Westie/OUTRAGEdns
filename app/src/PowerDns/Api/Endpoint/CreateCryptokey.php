@@ -43,6 +43,11 @@ class CreateCryptokey extends \Jane\OpenApiRuntime\Client\BaseEndpoint implement
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     /**
      * {@inheritdoc}
      *

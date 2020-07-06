@@ -9,7 +9,7 @@ class SearchResultZone
      */
     protected $name;
     /**
-     * set to "zone".
+     * set to "zone"
      *
      * @var string
      */
@@ -31,7 +31,7 @@ class SearchResultZone
     }
 
     /**
-     * set to "zone".
+     * set to "zone"
      */
     public function getObjectType(): string
     {
@@ -39,7 +39,7 @@ class SearchResultZone
     }
 
     /**
-     * set to "zone".
+     * set to "zone"
      */
     public function setObjectType(string $objectType): self
     {

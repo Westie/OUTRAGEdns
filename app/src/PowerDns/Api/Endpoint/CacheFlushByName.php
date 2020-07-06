@@ -40,6 +40,11 @@ class CacheFlushByName extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();

@@ -5,50 +5,50 @@ namespace App\PowerDns\Api\Model;
 class Server
 {
     /**
-     * Set to “Server”.
+     * Set to “Server”
      *
      * @var string
      */
     protected $type;
     /**
-     * The id of the server, “localhost”.
+     * The id of the server, “localhost”
      *
      * @var string
      */
     protected $id;
     /**
-     * “recursor” for the PowerDNS Recursor and “authoritative” for the Authoritative Server.
+     * “recursor” for the PowerDNS Recursor and “authoritative” for the Authoritative Server
      *
      * @var string
      */
     protected $daemonType;
     /**
-     * The version of the server software.
+     * The version of the server software
      *
      * @var string
      */
     protected $version;
     /**
-     * The API endpoint for this server.
+     * The API endpoint for this server
      *
      * @var string
      */
     protected $url;
     /**
-     * The API endpoint for this server’s configuration.
+     * The API endpoint for this server’s configuration
      *
      * @var string
      */
     protected $configUrl;
     /**
-     * The API endpoint for this server’s zones.
+     * The API endpoint for this server’s zones
      *
      * @var string
      */
     protected $zonesUrl;
 
     /**
-     * Set to “Server”.
+     * Set to “Server”
      */
     public function getType(): string
     {
@@ -56,7 +56,7 @@ class Server
     }
 
     /**
-     * Set to “Server”.
+     * Set to “Server”
      */
     public function setType(string $type): self
     {
@@ -65,7 +65,7 @@ class Server
     }
 
     /**
-     * The id of the server, “localhost”.
+     * The id of the server, “localhost”
      */
     public function getId(): string
     {
@@ -73,7 +73,7 @@ class Server
     }
 
     /**
-     * The id of the server, “localhost”.
+     * The id of the server, “localhost”
      */
     public function setId(string $id): self
     {
@@ -82,7 +82,7 @@ class Server
     }
 
     /**
-     * “recursor” for the PowerDNS Recursor and “authoritative” for the Authoritative Server.
+     * “recursor” for the PowerDNS Recursor and “authoritative” for the Authoritative Server
      */
     public function getDaemonType(): string
     {
@@ -90,7 +90,7 @@ class Server
     }
 
     /**
-     * “recursor” for the PowerDNS Recursor and “authoritative” for the Authoritative Server.
+     * “recursor” for the PowerDNS Recursor and “authoritative” for the Authoritative Server
      */
     public function setDaemonType(string $daemonType): self
     {
@@ -99,7 +99,7 @@ class Server
     }
 
     /**
-     * The version of the server software.
+     * The version of the server software
      */
     public function getVersion(): string
     {
@@ -107,7 +107,7 @@ class Server
     }
 
     /**
-     * The version of the server software.
+     * The version of the server software
      */
     public function setVersion(string $version): self
     {
@@ -116,7 +116,7 @@ class Server
     }
 
     /**
-     * The API endpoint for this server.
+     * The API endpoint for this server
      */
     public function getUrl(): string
     {
@@ -124,7 +124,7 @@ class Server
     }
 
     /**
-     * The API endpoint for this server.
+     * The API endpoint for this server
      */
     public function setUrl(string $url): self
     {
@@ -133,7 +133,7 @@ class Server
     }
 
     /**
-     * The API endpoint for this server’s configuration.
+     * The API endpoint for this server’s configuration
      */
     public function getConfigUrl(): string
     {
@@ -141,7 +141,7 @@ class Server
     }
 
     /**
-     * The API endpoint for this server’s configuration.
+     * The API endpoint for this server’s configuration
      */
     public function setConfigUrl(string $configUrl): self
     {
@@ -150,7 +150,7 @@ class Server
     }
 
     /**
-     * The API endpoint for this server’s zones.
+     * The API endpoint for this server’s zones
      */
     public function getZonesUrl(): string
     {
@@ -158,7 +158,7 @@ class Server
     }
 
     /**
-     * The API endpoint for this server’s zones.
+     * The API endpoint for this server’s zones
      */
     public function setZonesUrl(string $zonesUrl): self
     {

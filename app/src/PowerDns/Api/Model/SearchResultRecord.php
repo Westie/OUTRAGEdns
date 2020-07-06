@@ -17,7 +17,7 @@ class SearchResultRecord
      */
     protected $name;
     /**
-     * set to "record".
+     * set to "record"
      *
      * @var string
      */
@@ -73,7 +73,7 @@ class SearchResultRecord
     }
 
     /**
-     * set to "record".
+     * set to "record"
      */
     public function getObjectType(): string
     {
@@ -81,7 +81,7 @@ class SearchResultRecord
     }
 
     /**
-     * set to "record".
+     * set to "record"
      */
     public function setObjectType(string $objectType): self
     {

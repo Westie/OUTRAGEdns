@@ -5,20 +5,20 @@ namespace App\PowerDns\Api\Model;
 class Error
 {
     /**
-     * A human readable error message.
+     * A human readable error message
      *
      * @var string
      */
     protected $error;
     /**
-     * Optional array of multiple errors encountered during processing.
+     * Optional array of multiple errors encountered during processing
      *
      * @var string[]
      */
     protected $errors;
 
     /**
-     * A human readable error message.
+     * A human readable error message
      */
     public function getError(): string
     {
@@ -26,7 +26,7 @@ class Error
     }
 
     /**
-     * A human readable error message.
+     * A human readable error message
      */
     public function setError(string $error): self
     {
@@ -35,7 +35,7 @@ class Error
     }
 
     /**
-     * Optional array of multiple errors encountered during processing.
+     * Optional array of multiple errors encountered during processing
      *
      * @return string[]
      */
@@ -45,7 +45,7 @@ class Error
     }
 
     /**
-     * Optional array of multiple errors encountered during processing.
+     * Optional array of multiple errors encountered during processing
      *
      * @param string[] $errors
      */

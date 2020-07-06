@@ -5,13 +5,13 @@ namespace App\PowerDns\Api\Model;
 class RRSet
 {
     /**
-     * Name for record set (e.g. “www.powerdns.com.”).
+     * Name for record set (e.g. “www.powerdns.com.”)
      *
      * @var string
      */
     protected $name;
     /**
-     * Type of this record (e.g. “A”, “PTR”, “MX”).
+     * Type of this record (e.g. “A”, “PTR”, “MX”)
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class RRSet
     protected $comments;
 
     /**
-     * Name for record set (e.g. “www.powerdns.com.”).
+     * Name for record set (e.g. “www.powerdns.com.”)
      */
     public function getName(): string
     {
@@ -50,7 +50,7 @@ class RRSet
     }
 
     /**
-     * Name for record set (e.g. “www.powerdns.com.”).
+     * Name for record set (e.g. “www.powerdns.com.”)
      */
     public function setName(string $name): self
     {
@@ -59,7 +59,7 @@ class RRSet
     }
 
     /**
-     * Type of this record (e.g. “A”, “PTR”, “MX”).
+     * Type of this record (e.g. “A”, “PTR”, “MX”)
      */
     public function getType(): string
     {
@@ -67,7 +67,7 @@ class RRSet
     }
 
     /**
-     * Type of this record (e.g. “A”, “PTR”, “MX”).
+     * Type of this record (e.g. “A”, “PTR”, “MX”)
      */
     public function setType(string $type): self
     {

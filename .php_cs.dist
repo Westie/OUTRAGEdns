@@ -2,13 +2,14 @@
 
 $finder = PhpCsFixer\Finder::create();
 $finder->path('app/src/');
+$finder->path('index.php');
 $finder->in(__DIR__);
 
 $config = PhpCsFixer\Config::create();
 $config->setRules([
     '@PSR2' => true,
     '@PhpCsFixer' => true,
-    'phpdoc_summary' => true,
+    'phpdoc_summary' => false,
     'hash_to_slash_comment' => false,
     'no_spaces_around_offset' => false,
     'trim_array_spaces' => false,

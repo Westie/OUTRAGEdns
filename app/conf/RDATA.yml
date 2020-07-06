@@ -1,0 +1,117 @@
+# RFC1035
+# https://tools.ietf.org/html/rfc1035
+CNAME:
+    - CNAME
+
+HINFO:
+    - CPU
+    - OS
+
+MB:
+    - MADNAME
+
+MD:
+    - MADNAME
+
+MF:
+    - MADNAME
+
+MG:
+    - MGMNAME
+
+MINFO:
+    - RMAILBX
+    - EMAILBX
+
+MR:
+    - NEWNAME
+
+MX:
+    - PREFERENCE
+    - EXCHANGE
+
+'NULL':
+    - true
+
+NS:
+    - NSDNAME
+
+PTR:
+    - PTRDNAME
+
+SOA:
+    - MNAME
+    - RNAME
+    - SERIAL
+    - REFRESH
+    - RETRY
+    - EXPIRE
+    - MINIMUM
+
+TXT:
+    - TXT-DATA
+
+A:
+    - ADDRESS
+
+WKS:
+    - ADDRESS
+    - PROTOCOL
+    - true
+
+
+# RFC1183
+# https://tools.ietf.org/html/rfc1183
+AFSDB:
+    - SUBTYPE
+    - HOSTNAME
+
+RP:
+    - MBOX-DNAME
+    - TXT-DNAME
+
+X25:
+    - PSDN-ADDRESS
+
+ISDN:
+    - ISDN-ADDRESS
+    - SA
+
+RT:
+    - PREFERENCE
+    - INTERMEDIATE-HOST
+
+
+# RFC1706
+# https://tools.ietf.org/html/rfc1706
+NSAP:
+    - true
+
+
+# RFC3596
+# https://tools.ietf.org/html/rfc3596
+AAAA:
+    - ADDRESS
+
+
+# RFC2845
+# https://tools.ietf.org/html/rfc2845
+TSIG:
+    - ALGORITHM-NAME
+    - TIME-SIGNED
+    - FUDGE
+    - MAC-SIZE
+    - MAC
+    - ORIGINAL-ID
+    - ERROR
+    - OTHER-LEN
+    - OTHER-DATA
+
+
+# RFC2782
+# https://tools.ietf.org/html/rfc2782
+SRV:
+    - PRIORITY
+    - WEIGHT
+    - PORT
+    - TARGET

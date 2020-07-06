@@ -5,20 +5,20 @@ namespace App\PowerDns\Api\Model;
 class SimpleStatisticItem
 {
     /**
-     * Item name.
+     * Item name
      *
      * @var string
      */
     protected $name;
     /**
-     * Item value.
+     * Item value
      *
      * @var string
      */
     protected $value;
 
     /**
-     * Item name.
+     * Item name
      */
     public function getName(): string
     {
@@ -26,7 +26,7 @@ class SimpleStatisticItem
     }
 
     /**
-     * Item name.
+     * Item name
      */
     public function setName(string $name): self
     {
@@ -35,7 +35,7 @@ class SimpleStatisticItem
     }
 
     /**
-     * Item value.
+     * Item value
      */
     public function getValue(): string
     {
@@ -43,7 +43,7 @@ class SimpleStatisticItem
     }
 
     /**
-     * Item value.
+     * Item value
      */
     public function setValue(string $value): self
     {

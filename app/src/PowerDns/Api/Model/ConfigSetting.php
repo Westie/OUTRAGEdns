@@ -5,26 +5,26 @@ namespace App\PowerDns\Api\Model;
 class ConfigSetting
 {
     /**
-     * set to "ConfigSetting".
+     * set to "ConfigSetting"
      *
      * @var string
      */
     protected $name;
     /**
-     * The name of this setting (e.g. ‘webserver-port’).
+     * The name of this setting (e.g. ‘webserver-port’)
      *
      * @var string
      */
     protected $type;
     /**
-     * The value of setting name.
+     * The value of setting name
      *
      * @var string
      */
     protected $value;
 
     /**
-     * set to "ConfigSetting".
+     * set to "ConfigSetting"
      */
     public function getName(): string
     {
@@ -32,7 +32,7 @@ class ConfigSetting
     }
 
     /**
-     * set to "ConfigSetting".
+     * set to "ConfigSetting"
      */
     public function setName(string $name): self
     {
@@ -41,7 +41,7 @@ class ConfigSetting
     }
 
     /**
-     * The name of this setting (e.g. ‘webserver-port’).
+     * The name of this setting (e.g. ‘webserver-port’)
      */
     public function getType(): string
     {
@@ -49,7 +49,7 @@ class ConfigSetting
     }
 
     /**
-     * The name of this setting (e.g. ‘webserver-port’).
+     * The name of this setting (e.g. ‘webserver-port’)
      */
     public function setType(string $type): self
     {
@@ -58,7 +58,7 @@ class ConfigSetting
     }
 
     /**
-     * The value of setting name.
+     * The value of setting name
      */
     public function getValue(): string
     {
@@ -66,7 +66,7 @@ class ConfigSetting
     }
 
     /**
-     * The value of setting name.
+     * The value of setting name
      */
     public function setValue(string $value): self
     {

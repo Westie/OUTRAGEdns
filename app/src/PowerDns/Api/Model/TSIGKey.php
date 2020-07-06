@@ -5,7 +5,7 @@ namespace App\PowerDns\Api\Model;
 class TSIGKey
 {
     /**
-     * The name of the key.
+     * The name of the key
      *
      * @var string
      */
@@ -17,26 +17,26 @@ class TSIGKey
      */
     protected $id;
     /**
-     * The algorithm of the TSIG key.
+     * The algorithm of the TSIG key
      *
      * @var string
      */
     protected $algorithm;
     /**
-     * The Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material.
+     * The Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material
      *
      * @var string
      */
     protected $key;
     /**
-     * Set to "TSIGKey".
+     * Set to "TSIGKey"
      *
      * @var string
      */
     protected $type;
 
     /**
-     * The name of the key.
+     * The name of the key
      */
     public function getName(): string
     {
@@ -44,7 +44,7 @@ class TSIGKey
     }
 
     /**
-     * The name of the key.
+     * The name of the key
      */
     public function setName(string $name): self
     {
@@ -70,7 +70,7 @@ class TSIGKey
     }
 
     /**
-     * The algorithm of the TSIG key.
+     * The algorithm of the TSIG key
      */
     public function getAlgorithm(): string
     {
@@ -78,7 +78,7 @@ class TSIGKey
     }
 
     /**
-     * The algorithm of the TSIG key.
+     * The algorithm of the TSIG key
      */
     public function setAlgorithm(string $algorithm): self
     {
@@ -87,7 +87,7 @@ class TSIGKey
     }
 
     /**
-     * The Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material.
+     * The Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material
      */
     public function getKey(): string
     {
@@ -95,7 +95,7 @@ class TSIGKey
     }
 
     /**
-     * The Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material.
+     * The Base64 encoded secret key, empty when listing keys. MAY be empty when POSTing to have the server generate the key material
      */
     public function setKey(string $key): self
     {
@@ -104,7 +104,7 @@ class TSIGKey
     }
 
     /**
-     * Set to "TSIGKey".
+     * Set to "TSIGKey"
      */
     public function getType(): string
     {
@@ -112,7 +112,7 @@ class TSIGKey
     }
 
     /**
-     * Set to "TSIGKey".
+     * Set to "TSIGKey"
      */
     public function setType(string $type): self
     {

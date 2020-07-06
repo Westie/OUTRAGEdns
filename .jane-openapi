@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'openapi-file' => __DIR__ . '/app/openapi.yaml',
+    'openapi-file' => __DIR__ . '/app/conf/openapi.yml',
     'namespace' => 'App\PowerDns\Api',
     'directory' => __DIR__ . '/app/src/PowerDns/Api',
 ];

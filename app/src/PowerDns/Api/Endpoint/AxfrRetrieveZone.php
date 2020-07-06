@@ -35,6 +35,11 @@ class AxfrRetrieveZone extends \Jane\OpenApiRuntime\Client\BaseEndpoint implemen
         return [[], null];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     /**
      * {@inheritdoc}
      */

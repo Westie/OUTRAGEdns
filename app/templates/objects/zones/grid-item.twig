@@ -1,0 +1,59 @@
+{% if index is not defined %}
+    {% set index = null %}
+{% endif %}
+
+<tr{% if class is defined %} class="{{ class|e }}"{% endif %}>
+    <td class="check">
+        <input type="checkbox" name="selected[]" value="{{ result.id }}" />
+    </td>
+
+    {% if godmode %}
+        <td>
+            {{ result.user.username }}
+        </td>
+    {% endif %}
+
+    <td>
+        {{ result.name }}
+    </td>
+
+    <td>
+        {{ result.kind }}
+    </td>
+
+    <td>
+        {% if result.serial == "0" %}
+            &mdash;
+        {% else %}
+            {{ result.serial }}
+        {% endif %}
+    </td>
+
+    <td class="actions">
+        <ul class="tiny">
+            <li>
+                <a href="{{ result.actions.edit }}" class="tooltip" title="Edit">
+                    <i class="fa fa-edit"></i>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ result.actions.revisions }}" class="tooltip" title="Revisions">
+                    <i class="fa fa-history"></i>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ result.actions.test }}" class="tooltip" title="Test against external nameservers">
+                    <i class="fa fa-globe"></i>
+                </a>
+            </li>
+
+            <li class="remove">
+                <a href="{{ result.actions.delete }}" class="tooltip" title="Remove">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </li>
+        </ul>
+    </td>
+</tr>

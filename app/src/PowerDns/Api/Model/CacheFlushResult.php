@@ -5,20 +5,20 @@ namespace App\PowerDns\Api\Model;
 class CacheFlushResult
 {
     /**
-     * Amount of entries flushed.
+     * Amount of entries flushed
      *
      * @var float
      */
     protected $count;
     /**
-     * A message about the result like "Flushed cache".
+     * A message about the result like "Flushed cache"
      *
      * @var string
      */
     protected $result;
 
     /**
-     * Amount of entries flushed.
+     * Amount of entries flushed
      */
     public function getCount(): float
     {
@@ -26,7 +26,7 @@ class CacheFlushResult
     }
 
     /**
-     * Amount of entries flushed.
+     * Amount of entries flushed
      */
     public function setCount(float $count): self
     {
@@ -35,7 +35,7 @@ class CacheFlushResult
     }
 
     /**
-     * A message about the result like "Flushed cache".
+     * A message about the result like "Flushed cache"
      */
     public function getResult(): string
     {
@@ -43,7 +43,7 @@ class CacheFlushResult
     }
 
     /**
-     * A message about the result like "Flushed cache".
+     * A message about the result like "Flushed cache"
      */
     public function setResult(string $result): self
     {

@@ -1,0 +1,40 @@
+{% import "/includes/macros/form.twig" as forms %}
+
+<h1>List all zones/domains</h1>
+
+<form class="form-horizontal" method="POST">
+    <table class="grid-table">
+        <thead>
+            <tr>
+                <th width="0%" class="check"></th>
+
+                {% if godmode %}
+                    <th width="20%">Owner</th>
+                    <th width="20%">Name</th>
+                {% else %}
+                    <th width="40%">Name</th>
+                {% endif %}
+                
+                <th width="15%">Kind</th>
+                <th width="15%">Serial</th>
+                <th width="15%" class="actions last">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if results|length %}
+                {% for result in results %}
+                    {% include "objects/zones/grid-item.twig" with { result: result } %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="{% if godmode %}7{% else %}6{% endif %}">
+                        No domains found
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a class="button pull-right" href="#">Add domain</a>
+</form>

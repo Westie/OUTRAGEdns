@@ -11,109 +11,109 @@ class Zone
      */
     protected $id;
     /**
-     * Name of the zone (e.g. “example.com.”) MUST have a trailing dot.
+     * Name of the zone (e.g. “example.com.”) MUST have a trailing dot
      *
      * @var string
      */
     protected $name;
     /**
-     * Set to “Zone”.
+     * Set to “Zone”
      *
      * @var string
      */
     protected $type;
     /**
-     * API endpoint for this zone.
+     * API endpoint for this zone
      *
      * @var string
      */
     protected $url;
     /**
-     * Zone kind, one of “Native”, “Master”, “Slave”.
+     * Zone kind, one of “Native”, “Master”, “Slave”
      *
      * @var string
      */
     protected $kind;
     /**
-     * RRSets in this zone (for zones/{zone_id} endpoint only; omitted during GET on the .../zones list endpoint).
+     * RRSets in this zone (for zones/{zone_id} endpoint only; omitted during GET on the .../zones list endpoint)
      *
      * @var RRSet[]
      */
     protected $rrsets;
     /**
-     * The SOA serial number.
+     * The SOA serial number
      *
      * @var int
      */
     protected $serial;
     /**
-     * The SOA serial notifications have been sent out for.
+     * The SOA serial notifications have been sent out for
      *
      * @var int
      */
     protected $notifiedSerial;
     /**
-     * The SOA serial as seen in query responses. Calculated using the SOA-EDIT metadata, default-soa-edit and default-soa-edit-signed settings.
+     * The SOA serial as seen in query responses. Calculated using the SOA-EDIT metadata, default-soa-edit and default-soa-edit-signed settings
      *
      * @var int
      */
     protected $editedSerial;
     /**
-     *  List of IP addresses configured as a master for this zone (“Slave” type zones only).
+     *  List of IP addresses configured as a master for this zone (“Slave” type zones only)
      *
      * @var string[]
      */
     protected $masters;
     /**
-     * Whether or not this zone is DNSSEC signed (inferred from presigned being true XOR presence of at least one cryptokey with active being true).
+     * Whether or not this zone is DNSSEC signed (inferred from presigned being true XOR presence of at least one cryptokey with active being true)
      *
      * @var bool
      */
     protected $dnssec;
     /**
-     * The NSEC3PARAM record.
+     * The NSEC3PARAM record
      *
      * @var string
      */
     protected $nsec3param;
     /**
-     * Whether or not the zone uses NSEC3 narrow.
+     * Whether or not the zone uses NSEC3 narrow
      *
      * @var bool
      */
     protected $nsec3narrow;
     /**
-     * Whether or not the zone is pre-signed.
+     * Whether or not the zone is pre-signed
      *
      * @var bool
      */
     protected $presigned;
     /**
-     * The SOA-EDIT metadata item.
+     * The SOA-EDIT metadata item
      *
      * @var string
      */
     protected $soaEdit;
     /**
-     * The SOA-EDIT-API metadata item.
+     * The SOA-EDIT-API metadata item
      *
      * @var string
      */
     protected $soaEditApi;
     /**
-     *  Whether or not the zone will be rectified on data changes via the API.
+     *  Whether or not the zone will be rectified on data changes via the API
      *
      * @var bool
      */
     protected $apiRectify;
     /**
-     * MAY contain a BIND-style zone file when creating a zone.
+     * MAY contain a BIND-style zone file when creating a zone
      *
      * @var string
      */
     protected $zone;
     /**
-     * MAY be set. Its value is defined by local policy.
+     * MAY be set. Its value is defined by local policy
      *
      * @var string
      */
@@ -125,13 +125,13 @@ class Zone
      */
     protected $nameservers;
     /**
-     * The id of the TSIG keys used for master operation in this zone.
+     * The id of the TSIG keys used for master operation in this zone
      *
      * @var string[]
      */
     protected $masterTsigKeyIds;
     /**
-     * The id of the TSIG keys used for slave operation in this zone.
+     * The id of the TSIG keys used for slave operation in this zone
      *
      * @var string[]
      */
@@ -155,7 +155,7 @@ class Zone
     }
 
     /**
-     * Name of the zone (e.g. “example.com.”) MUST have a trailing dot.
+     * Name of the zone (e.g. “example.com.”) MUST have a trailing dot
      */
     public function getName(): string
     {
@@ -163,7 +163,7 @@ class Zone
     }
 
     /**
-     * Name of the zone (e.g. “example.com.”) MUST have a trailing dot.
+     * Name of the zone (e.g. “example.com.”) MUST have a trailing dot
      */
     public function setName(string $name): self
     {
@@ -172,7 +172,7 @@ class Zone
     }
 
     /**
-     * Set to “Zone”.
+     * Set to “Zone”
      */
     public function getType(): string
     {
@@ -180,7 +180,7 @@ class Zone
     }
 
     /**
-     * Set to “Zone”.
+     * Set to “Zone”
      */
     public function setType(string $type): self
     {
@@ -189,7 +189,7 @@ class Zone
     }
 
     /**
-     * API endpoint for this zone.
+     * API endpoint for this zone
      */
     public function getUrl(): string
     {
@@ -197,7 +197,7 @@ class Zone
     }
 
     /**
-     * API endpoint for this zone.
+     * API endpoint for this zone
      */
     public function setUrl(string $url): self
     {
@@ -206,7 +206,7 @@ class Zone
     }
 
     /**
-     * Zone kind, one of “Native”, “Master”, “Slave”.
+     * Zone kind, one of “Native”, “Master”, “Slave”
      */
     public function getKind(): string
     {
@@ -214,7 +214,7 @@ class Zone
     }
 
     /**
-     * Zone kind, one of “Native”, “Master”, “Slave”.
+     * Zone kind, one of “Native”, “Master”, “Slave”
      */
     public function setKind(string $kind): self
     {
@@ -223,7 +223,7 @@ class Zone
     }
 
     /**
-     * RRSets in this zone (for zones/{zone_id} endpoint only; omitted during GET on the .../zones list endpoint).
+     * RRSets in this zone (for zones/{zone_id} endpoint only; omitted during GET on the .../zones list endpoint)
      *
      * @return RRSet[]
      */
@@ -233,7 +233,7 @@ class Zone
     }
 
     /**
-     * RRSets in this zone (for zones/{zone_id} endpoint only; omitted during GET on the .../zones list endpoint).
+     * RRSets in this zone (for zones/{zone_id} endpoint only; omitted during GET on the .../zones list endpoint)
      *
      * @param RRSet[] $rrsets
      */
@@ -244,7 +244,7 @@ class Zone
     }
 
     /**
-     * The SOA serial number.
+     * The SOA serial number
      */
     public function getSerial(): int
     {
@@ -252,7 +252,7 @@ class Zone
     }
 
     /**
-     * The SOA serial number.
+     * The SOA serial number
      */
     public function setSerial(int $serial): self
     {
@@ -261,7 +261,7 @@ class Zone
     }
 
     /**
-     * The SOA serial notifications have been sent out for.
+     * The SOA serial notifications have been sent out for
      */
     public function getNotifiedSerial(): int
     {
@@ -269,7 +269,7 @@ class Zone
     }
 
     /**
-     * The SOA serial notifications have been sent out for.
+     * The SOA serial notifications have been sent out for
      */
     public function setNotifiedSerial(int $notifiedSerial): self
     {
@@ -278,7 +278,7 @@ class Zone
     }
 
     /**
-     * The SOA serial as seen in query responses. Calculated using the SOA-EDIT metadata, default-soa-edit and default-soa-edit-signed settings.
+     * The SOA serial as seen in query responses. Calculated using the SOA-EDIT metadata, default-soa-edit and default-soa-edit-signed settings
      */
     public function getEditedSerial(): int
     {
@@ -286,7 +286,7 @@ class Zone
     }
 
     /**
-     * The SOA serial as seen in query responses. Calculated using the SOA-EDIT metadata, default-soa-edit and default-soa-edit-signed settings.
+     * The SOA serial as seen in query responses. Calculated using the SOA-EDIT metadata, default-soa-edit and default-soa-edit-signed settings
      */
     public function setEditedSerial(int $editedSerial): self
     {
@@ -295,7 +295,7 @@ class Zone
     }
 
     /**
-     *  List of IP addresses configured as a master for this zone (“Slave” type zones only).
+     *  List of IP addresses configured as a master for this zone (“Slave” type zones only)
      *
      * @return string[]
      */
@@ -305,7 +305,7 @@ class Zone
     }
 
     /**
-     *  List of IP addresses configured as a master for this zone (“Slave” type zones only).
+     *  List of IP addresses configured as a master for this zone (“Slave” type zones only)
      *
      * @param string[] $masters
      */
@@ -316,7 +316,7 @@ class Zone
     }
 
     /**
-     * Whether or not this zone is DNSSEC signed (inferred from presigned being true XOR presence of at least one cryptokey with active being true).
+     * Whether or not this zone is DNSSEC signed (inferred from presigned being true XOR presence of at least one cryptokey with active being true)
      */
     public function getDnssec(): bool
     {
@@ -324,7 +324,7 @@ class Zone
     }
 
     /**
-     * Whether or not this zone is DNSSEC signed (inferred from presigned being true XOR presence of at least one cryptokey with active being true).
+     * Whether or not this zone is DNSSEC signed (inferred from presigned being true XOR presence of at least one cryptokey with active being true)
      */
     public function setDnssec(bool $dnssec): self
     {
@@ -333,7 +333,7 @@ class Zone
     }
 
     /**
-     * The NSEC3PARAM record.
+     * The NSEC3PARAM record
      */
     public function getNsec3param(): string
     {
@@ -341,7 +341,7 @@ class Zone
     }
 
     /**
-     * The NSEC3PARAM record.
+     * The NSEC3PARAM record
      */
     public function setNsec3param(string $nsec3param): self
     {
@@ -350,7 +350,7 @@ class Zone
     }
 
     /**
-     * Whether or not the zone uses NSEC3 narrow.
+     * Whether or not the zone uses NSEC3 narrow
      */
     public function getNsec3narrow(): bool
     {
@@ -358,7 +358,7 @@ class Zone
     }
 
     /**
-     * Whether or not the zone uses NSEC3 narrow.
+     * Whether or not the zone uses NSEC3 narrow
      */
     public function setNsec3narrow(bool $nsec3narrow): self
     {
@@ -367,7 +367,7 @@ class Zone
     }
 
     /**
-     * Whether or not the zone is pre-signed.
+     * Whether or not the zone is pre-signed
      */
     public function getPresigned(): bool
     {
@@ -375,7 +375,7 @@ class Zone
     }
 
     /**
-     * Whether or not the zone is pre-signed.
+     * Whether or not the zone is pre-signed
      */
     public function setPresigned(bool $presigned): self
     {
@@ -384,7 +384,7 @@ class Zone
     }
 
     /**
-     * The SOA-EDIT metadata item.
+     * The SOA-EDIT metadata item
      */
     public function getSoaEdit(): string
     {
@@ -392,7 +392,7 @@ class Zone
     }
 
     /**
-     * The SOA-EDIT metadata item.
+     * The SOA-EDIT metadata item
      */
     public function setSoaEdit(string $soaEdit): self
     {
@@ -401,7 +401,7 @@ class Zone
     }
 
     /**
-     * The SOA-EDIT-API metadata item.
+     * The SOA-EDIT-API metadata item
      */
     public function getSoaEditApi(): string
     {
@@ -409,7 +409,7 @@ class Zone
     }
 
     /**
-     * The SOA-EDIT-API metadata item.
+     * The SOA-EDIT-API metadata item
      */
     public function setSoaEditApi(string $soaEditApi): self
     {
@@ -418,7 +418,7 @@ class Zone
     }
 
     /**
-     *  Whether or not the zone will be rectified on data changes via the API.
+     *  Whether or not the zone will be rectified on data changes via the API
      */
     public function getApiRectify(): bool
     {
@@ -426,7 +426,7 @@ class Zone
     }
 
     /**
-     *  Whether or not the zone will be rectified on data changes via the API.
+     *  Whether or not the zone will be rectified on data changes via the API
      */
     public function setApiRectify(bool $apiRectify): self
     {
@@ -435,7 +435,7 @@ class Zone
     }
 
     /**
-     * MAY contain a BIND-style zone file when creating a zone.
+     * MAY contain a BIND-style zone file when creating a zone
      */
     public function getZone(): string
     {
@@ -443,7 +443,7 @@ class Zone
     }
 
     /**
-     * MAY contain a BIND-style zone file when creating a zone.
+     * MAY contain a BIND-style zone file when creating a zone
      */
     public function setZone(string $zone): self
     {
@@ -452,7 +452,7 @@ class Zone
     }
 
     /**
-     * MAY be set. Its value is defined by local policy.
+     * MAY be set. Its value is defined by local policy
      */
     public function getAccount(): string
     {
@@ -460,7 +460,7 @@ class Zone
     }
 
     /**
-     * MAY be set. Its value is defined by local policy.
+     * MAY be set. Its value is defined by local policy
      */
     public function setAccount(string $account): self
     {
@@ -490,7 +490,7 @@ class Zone
     }
 
     /**
-     * The id of the TSIG keys used for master operation in this zone.
+     * The id of the TSIG keys used for master operation in this zone
      *
      * @return string[]
      */
@@ -500,7 +500,7 @@ class Zone
     }
 
     /**
-     * The id of the TSIG keys used for master operation in this zone.
+     * The id of the TSIG keys used for master operation in this zone
      *
      * @param string[] $masterTsigKeyIds
      */
@@ -511,7 +511,7 @@ class Zone
     }
 
     /**
-     * The id of the TSIG keys used for slave operation in this zone.
+     * The id of the TSIG keys used for slave operation in this zone
      *
      * @return string[]
      */
@@ -521,7 +521,7 @@ class Zone
     }
 
     /**
-     * The id of the TSIG keys used for slave operation in this zone.
+     * The id of the TSIG keys used for slave operation in this zone
      *
      * @param string[] $slaveTsigKeyIds
      */

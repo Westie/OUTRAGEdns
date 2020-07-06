@@ -5,26 +5,26 @@ namespace App\PowerDns\Api\Model;
 class MapStatisticItem
 {
     /**
-     * Item name.
+     * Item name
      *
      * @var string
      */
     protected $name;
     /**
-     * Set to "MapStatisticItem".
+     * Set to "MapStatisticItem"
      *
      * @var string
      */
     protected $type;
     /**
-     * Named values.
+     * Named values
      *
      * @var SimpleStatisticItem[]
      */
     protected $value;
 
     /**
-     * Item name.
+     * Item name
      */
     public function getName(): string
     {
@@ -32,7 +32,7 @@ class MapStatisticItem
     }
 
     /**
-     * Item name.
+     * Item name
      */
     public function setName(string $name): self
     {
@@ -41,7 +41,7 @@ class MapStatisticItem
     }
 
     /**
-     * Set to "MapStatisticItem".
+     * Set to "MapStatisticItem"
      */
     public function getType(): string
     {
@@ -49,7 +49,7 @@ class MapStatisticItem
     }
 
     /**
-     * Set to "MapStatisticItem".
+     * Set to "MapStatisticItem"
      */
     public function setType(string $type): self
     {
@@ -58,7 +58,7 @@ class MapStatisticItem
     }
 
     /**
-     * Named values.
+     * Named values
      *
      * @return SimpleStatisticItem[]
      */
@@ -68,7 +68,7 @@ class MapStatisticItem
     }
 
     /**
-     * Named values.
+     * Named values
      *
      * @param SimpleStatisticItem[] $value
      */

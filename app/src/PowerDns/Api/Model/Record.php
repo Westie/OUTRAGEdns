@@ -5,13 +5,13 @@ namespace App\PowerDns\Api\Model;
 class Record
 {
     /**
-     * The content of this record.
+     * The content of this record
      *
      * @var string
      */
     protected $content;
     /**
-     * Whether or not this record is disabled. When unset, the record is not disabled.
+     * Whether or not this record is disabled. When unset, the record is not disabled
      *
      * @var bool
      */
@@ -24,7 +24,7 @@ class Record
     protected $setPtr;
 
     /**
-     * The content of this record.
+     * The content of this record
      */
     public function getContent(): string
     {
@@ -32,7 +32,7 @@ class Record
     }
 
     /**
-     * The content of this record.
+     * The content of this record
      */
     public function setContent(string $content): self
     {
@@ -41,7 +41,7 @@ class Record
     }
 
     /**
-     * Whether or not this record is disabled. When unset, the record is not disabled.
+     * Whether or not this record is disabled. When unset, the record is not disabled
      */
     public function getDisabled(): bool
     {
@@ -49,7 +49,7 @@ class Record
     }
 
     /**
-     * Whether or not this record is disabled. When unset, the record is not disabled.
+     * Whether or not this record is disabled. When unset, the record is not disabled
      */
     public function setDisabled(bool $disabled): self
     {

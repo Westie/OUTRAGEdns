@@ -43,6 +43,11 @@ class GetStats extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \Jane
         return ['Accept' => ['application/json']];
     }
 
+    public function getAuthenticationScopes(): array
+    {
+        return ['APIKeyHeader'];
+    }
+
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();

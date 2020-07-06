@@ -5,26 +5,26 @@ namespace App\PowerDns\Api\Model;
 class Comment
 {
     /**
-     * The actual comment.
+     * The actual comment
      *
      * @var string
      */
     protected $content;
     /**
-     * Name of an account that added the comment.
+     * Name of an account that added the comment
      *
      * @var string
      */
     protected $account;
     /**
-     * Timestamp of the last change to the comment.
+     * Timestamp of the last change to the comment
      *
      * @var int
      */
     protected $modifiedAt;
 
     /**
-     * The actual comment.
+     * The actual comment
      */
     public function getContent(): string
     {
@@ -32,7 +32,7 @@ class Comment
     }
 
     /**
-     * The actual comment.
+     * The actual comment
      */
     public function setContent(string $content): self
     {
@@ -41,7 +41,7 @@ class Comment
     }
 
     /**
-     * Name of an account that added the comment.
+     * Name of an account that added the comment
      */
     public function getAccount(): string
     {
@@ -49,7 +49,7 @@ class Comment
     }
 
     /**
-     * Name of an account that added the comment.
+     * Name of an account that added the comment
      */
     public function setAccount(string $account): self
     {
@@ -58,7 +58,7 @@ class Comment
     }
 
     /**
-     * Timestamp of the last change to the comment.
+     * Timestamp of the last change to the comment
      */
     public function getModifiedAt(): int
     {
@@ -66,7 +66,7 @@ class Comment
     }
 
     /**
-     * Timestamp of the last change to the comment.
+     * Timestamp of the last change to the comment
      */
     public function setModifiedAt(int $modifiedAt): self
     {
